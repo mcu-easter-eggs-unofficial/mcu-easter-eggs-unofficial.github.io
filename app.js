@@ -74,6 +74,33 @@ const EPISODE_URLS = {
     "Ms Marvel_S1_E6": "https://www.youtube.com/watch?v=grwyCsvgCXg"
 };
 
+const SHOW_POSTERS = {
+    "Agatha All Along": "images/show_posters/AAA.jpeg",
+    "WandaVision": "images/show_posters/WV.jpeg",
+    "Loki": "images/show_posters/LK.jpeg",
+    "The Falcon and the Winter Soldier": "images/show_posters/FATWS.jpeg",
+    "Hawkeye": "images/show_posters/HE.jpeg",
+    "Moon Knight": "images/show_posters/MK.jpeg",
+    "Ms Marvel": "images/show_posters/MM.jpeg",
+    "Ms. Marvel": "images/show_posters/MM.jpeg",
+    "She-Hulk: Attorney at Law": "images/show_posters/SH.jpeg",
+    "She-Hulk": "images/show_posters/SH.jpeg",
+    "Secret Invasion": "images/show_posters/SI.jpeg",
+    "Echo": "images/show_posters/ECHO.jpeg",
+    "Ironheart": "images/show_posters/IH.jpeg",
+    "AAA": "images/show_posters/AAA.jpeg",
+    "WV": "images/show_posters/WV.jpeg",
+    "LK": "images/show_posters/LK.jpeg",
+    "FATWS": "images/show_posters/FATWS.jpeg",
+    "HE": "images/show_posters/HE.jpeg",
+    "MK": "images/show_posters/MK.jpeg",
+    "MM": "images/show_posters/MM.jpeg",
+    "SH": "images/show_posters/SH.jpeg",
+    "SI": "images/show_posters/SI.jpeg",
+    "ECHO": "images/show_posters/ECHO.jpeg",
+    "IH": "images/show_posters/IH.jpeg"
+};
+
 const flashcardWrapper = document.getElementById('flashcard-wrapper');
 const flashcard = document.getElementById('flashcard');
 const ctxSeries = document.getElementById('ctx-series');
@@ -119,6 +146,7 @@ function loadRandomCard() {
 
     populateCard(currentCard);
     updateSlideshows(currentCard);
+    updateShowPosters(currentCard);
 }
 
 function populateCard(card) {
@@ -171,6 +199,40 @@ showQBtn.addEventListener('click', () => {
     flashcard.classList.remove('flipped');
 });
 
+function updateShowPosters(card) {
+    const leftPosterContainer = document.getElementById('poster-container-left');
+    const rightPosterContainer = document.getElementById('poster-container-right');
+    if (!leftPosterContainer || !rightPosterContainer) return;
+
+    leftPosterContainer.innerHTML = '';
+    rightPosterContainer.innerHTML = '';
+
+    const seriesName = card && card['Series'] ? card['Series'].trim() : '';
+    let posterSrc = SHOW_POSTERS[seriesName];
+
+    if (!posterSrc && card && card.Serial) {
+        const match = card.Serial.match(/^([A-Za-z]+)(?=S\d+E\d+)/);
+        if (match && SHOW_POSTERS[match[1]]) {
+            posterSrc = SHOW_POSTERS[match[1]];
+        }
+    }
+
+    if (posterSrc) {
+        const imgL = document.createElement('img');
+        imgL.className = 'show-poster';
+        imgL.src = posterSrc;
+        imgL.alt = seriesName ? `${seriesName} Poster` : 'Show Poster';
+
+        const imgR = document.createElement('img');
+        imgR.className = 'show-poster';
+        imgR.src = posterSrc;
+        imgR.alt = seriesName ? `${seriesName} Poster` : 'Show Poster';
+
+        leftPosterContainer.appendChild(imgL);
+        rightPosterContainer.appendChild(imgR);
+    }
+}
+
 function updateSlideshows(card) {
     const leftContainer = document.getElementById('slideshow-left');
     const rightContainer = document.getElementById('slideshow-right');
@@ -186,22 +248,6 @@ function updateSlideshows(card) {
     
     const abbrev = match[1];
     const basePath = `images/MCU_Easter_Eggs_Pics/${abbrev}/S${card.Season}/E${card.Episode}/`;
-    
-    // Update Show Posters
-    const posterLeft = document.getElementById('poster-left');
-    const posterRight = document.getElementById('poster-right');
-    const posterSrc = `images/show_posters/${abbrev}.jpeg`;
-    
-    if (posterLeft) {
-        posterLeft.src = posterSrc;
-        posterLeft.onerror = () => { posterLeft.parentElement.style.display = 'none'; };
-        posterLeft.onload = () => { posterLeft.parentElement.style.display = 'block'; };
-    }
-    if (posterRight) {
-        posterRight.src = posterSrc;
-        posterRight.onerror = () => { posterRight.parentElement.style.display = 'none'; };
-        posterRight.onload = () => { posterRight.parentElement.style.display = 'block'; };
-    }
 
     let loadedCount = 0;
     for(let i=1; i<=5; i++) {
