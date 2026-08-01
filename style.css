@@ -42,7 +42,7 @@ body {
 .stone-space {
     background: var(--stone-space);
     top: 10%;
-    left: 15%;
+    left: 5%;
     box-shadow: 0 0 20px var(--stone-space);
 }
 
@@ -56,8 +56,8 @@ body {
 
 .stone-reality {
     background: var(--stone-reality);
-    top: 50%;
-    left: 5%;
+    top: 8%;
+    left: 40%;
     box-shadow: 0 0 20px var(--stone-reality);
     animation-delay: -7s;
 }
