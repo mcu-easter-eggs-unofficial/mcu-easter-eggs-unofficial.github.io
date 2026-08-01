@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCU Easter Eggs</title>
+    <!-- Modern font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- PapaParse for CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+
+    <!-- Dynamic Infinity Stone Background Particles -->
+    <div class="stone-particle stone-space"></div>
+    <div class="stone-particle stone-mind"></div>
+    <div class="stone-particle stone-reality"></div>
+    <div class="stone-particle stone-power"></div>
+    <div class="stone-particle stone-time"></div>
+    <div class="stone-particle stone-soul"></div>
+    <!-- WandaVision Hex Effect -->
+    <div class="hex-overlay"></div>
+
+    <header>
+        <button id="new-card-btn" class="marvel-btn">NEW FLASHCARD</button>
+    </header>
+
+    <main class="container">
+        <div class="title-section">
+            <h1 class="zinger">"I understood that reference!"</h1>
+            <p class="subtitle">These flashcards contain the most hidden, interesting easter eggs (not cringe, one that will appeal to MCU fans)</p>
+        </div>
+
+        <div class="flashcard-wrapper hidden" id="flashcard-wrapper">
+            <div class="flashcard" id="flashcard">
+                <!-- Front Side -->
+                <div class="flashcard-face flashcard-front">
+                    <div class="context" id="card-context">
+                        REMEMBER! ANSWER THIS AS IF YOU HAVE SEEN <span class="highlight" id="ctx-series"></span> TILL <span class="highlight" id="ctx-season-ep"></span> AND NO FURTHER!
+                    </div>
+                    <div class="question" id="card-question">Loading...</div>
+                    <button class="marvel-btn reveal-btn" id="reveal-btn">Reveal</button>
+                </div>
+                
+                <!-- Back Side -->
+                <div class="flashcard-face flashcard-back">
+                    <div class="answer" id="card-answer"></div>
+                    <div class="reference hidden" id="card-reference">
+                        <strong>Reference:</strong> <span id="ref-text"></span>
+                    </div>
+                    <div class="caution hidden" id="card-caution">
+                        CAUTION: A BIT SPECULATIVE!
+                    </div>
+                    <button class="marvel-btn show-q-btn" id="show-q-btn">Show Question</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="credit-banner">
+            <p>Source Material & Deep Dives provided by</p>
+            <a href="https://www.youtube.com/@NewRockstars" target="_blank" rel="noopener noreferrer" class="nr-link">
+                <strong>New Rockstars</strong>
+            </a>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
