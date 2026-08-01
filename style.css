@@ -381,8 +381,8 @@ footer {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    width: 280px;
-    height: 157px; /* 16:9 aspect ratio */
+    width: 400px;
+    height: 225px; /* 16:9 aspect ratio */
     z-index: 10;
 }
 

@@ -144,5 +144,5 @@ function updateSlideshows(card) {
                 imgsR[0].classList.add('active');
             }
         }
-    }, 4000);
+    }, 7000);
 }
