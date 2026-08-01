@@ -375,3 +375,45 @@ footer {
         font-size: 1.2rem;
     }
 }
+
+/* Slideshow Styles */
+.slideshow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 280px;
+    height: 157px; /* 16:9 aspect ratio */
+    z-index: 10;
+}
+
+.slideshow-left {
+    left: 40px;
+}
+
+.slideshow-right {
+    right: 40px;
+}
+
+.slideshow img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.slideshow img.active {
+    opacity: 1;
+}
+
+@media (max-width: 1300px) {
+    .slideshow {
+        display: none; /* Hide on smaller screens to avoid overlapping flashcard */
+    }
+}
