@@ -104,6 +104,12 @@ def get_stream_url(youtube_url):
         info = ydl.extract_info(youtube_url, download=False)
         return info['url'], info.get('duration', 0)
 
+def is_blurry(image, threshold=60.0):
+    """Returns True if the image is considered blurry based on Laplacian variance."""
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    score = cv2.Laplacian(gray, cv2.CV_64F).var()
+    return score < threshold, score
+
 def extract_salient_frames(item):
     series = item["series"]
     season = item["season"]
@@ -131,17 +137,42 @@ def extract_salient_frames(item):
         fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
 
         for i, target_sec in enumerate(target_times, start=1):
-            frame_num = int(target_sec * fps)
-            cap.set(cv2.CAP_PROP_POS_FRAMES, frame_num)
-            ret, frame = cap.read()
+            best_frame = None
+            best_score = -1
+            best_sec = target_sec
 
-            if ret:
-                mins, secs = divmod(int(target_sec), 60)
+            # Search around the target time (up to +/- 5 seconds) to find a sharp frame
+            for offset in [0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5]:
+                check_sec = target_sec + offset
+                if check_sec < 0 or check_sec >= duration:
+                    continue
+                    
+                frame_num = int(check_sec * fps)
+                cap.set(cv2.CAP_PROP_POS_FRAMES, frame_num)
+                ret, frame = cap.read()
+
+                if ret:
+                    blurry, score = is_blurry(frame)
+                    if not blurry:
+                        # Found a sharp frame! Stop searching.
+                        best_frame = frame
+                        best_score = score
+                        best_sec = check_sec
+                        break
+                    elif score > best_score:
+                        # Keep track of the sharpest one we found just in case they're all blurry
+                        best_frame = frame
+                        best_score = score
+                        best_sec = check_sec
+
+            if best_frame is not None:
+                mins, secs = divmod(int(best_sec), 60)
                 out_path = os.path.join(target_dir, f"frame_{i}.jpg")
-                cv2.imwrite(out_path, frame)
-                print(f"    Saved frame {i}/5 @ {mins:02d}:{secs:02d} -> {out_path}")
+                cv2.imwrite(out_path, best_frame)
+                offset_str = f" (offset {int(best_sec - target_sec)}s)" if int(best_sec - target_sec) != 0 else ""
+                print(f"    Saved frame {i}/5 @ {mins:02d}:{secs:02d}{offset_str} -> {out_path} [Blur Score: {best_score:.1f}]")
             else:
-                print(f"    [Error] Failed to read frame at {target_sec}s")
+                print(f"    [Error] Failed to read any frame around {target_sec}s")
 
         cap.release()
 
