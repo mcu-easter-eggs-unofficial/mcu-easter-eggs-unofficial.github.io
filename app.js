@@ -187,6 +187,22 @@ function updateSlideshows(card) {
     const abbrev = match[1];
     const basePath = `images/MCU_Easter_Eggs_Pics/${abbrev}/S${card.Season}/E${card.Episode}/`;
     
+    // Update Show Posters
+    const posterLeft = document.getElementById('poster-left');
+    const posterRight = document.getElementById('poster-right');
+    const posterSrc = `images/show_posters/${abbrev}.jpeg`;
+    
+    if (posterLeft) {
+        posterLeft.src = posterSrc;
+        posterLeft.onerror = () => { posterLeft.parentElement.style.display = 'none'; };
+        posterLeft.onload = () => { posterLeft.parentElement.style.display = 'block'; };
+    }
+    if (posterRight) {
+        posterRight.src = posterSrc;
+        posterRight.onerror = () => { posterRight.parentElement.style.display = 'none'; };
+        posterRight.onload = () => { posterRight.parentElement.style.display = 'block'; };
+    }
+
     let loadedCount = 0;
     for(let i=1; i<=5; i++) {
         const src = `${basePath}frame_${i}.jpg`;
