@@ -10,6 +10,8 @@ BASE_DIR = "./images/MCU_Easter_Eggs_Pics"
 EPISODE_DATA = [
     # --- Agatha All Along (Season 1) ---
     {"series": "Agatha All Along", "serial": "AAA", "season": 1, "episode": 1, "url": "https://youtu.be/WHlEO1Bphu0", "pair_with": 2},
+    {"series": "Agatha All Along", "serial": "AAA", "season": 1, "episode": 3, "url": "https://youtu.be/y9Lrp5OszAk?si=8vuxgc7seLz-AdLO"},
+    {"series": "Agatha All Along", "serial": "AAA", "season": 1, "episode": 4, "url": "https://youtu.be/BI5cJTAOINk?si=EP4eI_vYTkAZAEdd"},
     {"series": "Agatha All Along", "serial": "AAA", "season": 1, "episode": 5, "url": "https://youtu.be/Be2p7dgwbZ4"},
     {"series": "Agatha All Along", "serial": "AAA", "season": 1, "episode": 6, "url": "https://youtu.be/GjAAu60TZkU"},
     {"series": "Agatha All Along", "serial": "AAA", "season": 1, "episode": 7, "url": "https://youtu.be/jrAdKq8cm3A"},
