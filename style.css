@@ -107,6 +107,13 @@ header {
     margin-bottom: 40px;
 }
 
+.banner-logo {
+    max-width: 100%;
+    max-height: 150px;
+    margin-bottom: 20px;
+    object-fit: contain;
+}
+
 .zinger {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 4rem;
