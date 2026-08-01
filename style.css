@@ -376,22 +376,35 @@ footer {
     }
 }
 
-/* Slideshow Styles */
-.slideshow {
+/* Side Panels (Slideshow + Show Poster) */
+.side-panel {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    width: 330px;
-    height: 185px; /* 16:9 aspect ratio */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     z-index: 0;
 }
 
-.slideshow-left {
+.side-panel-left {
     left: 20px;
 }
 
-.slideshow-right {
+.side-panel-right {
     right: 20px;
+}
+
+.slideshow,
+.poster-container {
+    position: relative;
+    width: 330px;
+    height: 185px; /* 16:9 aspect ratio matching slideshow */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .slideshow img {
@@ -403,17 +416,26 @@ footer {
     object-fit: cover;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
-    border-radius: 8px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .slideshow img.active {
     opacity: 1;
 }
 
+.show-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.show-poster:hover {
+    transform: scale(1.03);
+}
+
 @media (max-width: 900px) {
-    .slideshow {
+    .side-panel {
         display: none; /* Hide on smaller screens to avoid overlapping flashcard */
     }
 }
