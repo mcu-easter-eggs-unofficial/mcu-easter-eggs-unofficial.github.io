@@ -463,8 +463,14 @@ footer {
 }
 
 .visitor-counter #visitor-count {
-    color: var(--mc-gold);
+    color: var(--mc-red);
     font-weight: 600;
     margin-left: 4px;
     font-variant-numeric: tabular-nums;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.visitor-counter:hover #visitor-count {
+    color: #ffffff;
+    text-shadow: 0 0 10px var(--mc-red);
 }
