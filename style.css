@@ -114,8 +114,8 @@ header {
 
 .banner-logo {
     height: 70px;
-    width: auto;
-    object-fit: contain;
+    width: 250px;
+    object-fit: fill;
 }
 
 .zinger {
