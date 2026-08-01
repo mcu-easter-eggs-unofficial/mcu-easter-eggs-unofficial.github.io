@@ -2,6 +2,78 @@ let easterEggs = [];
 let currentCard = null;
 let slideshowInterval = null;
 
+const EPISODE_URLS = {
+    "Agatha All Along_S1_E1": "https://youtu.be/WHlEO1Bphu0",
+    "Agatha All Along_S1_E2": "https://youtu.be/WHlEO1Bphu0",
+    "Agatha All Along_S1_E3": "https://youtu.be/y9Lrp5OszAk?si=8vuxgc7seLz-AdLO",
+    "Agatha All Along_S1_E4": "https://youtu.be/BI5cJTAOINk?si=EP4eI_vYTkAZAEdd",
+    "Agatha All Along_S1_E5": "https://youtu.be/Be2p7dgwbZ4",
+    "Agatha All Along_S1_E6": "https://youtu.be/GjAAu60TZkU",
+    "Agatha All Along_S1_E7": "https://youtu.be/jrAdKq8cm3A",
+    "Agatha All Along_S1_E8": "https://youtu.be/SMkMbOhGipM",
+    "Agatha All Along_S1_E9": "https://youtu.be/SMkMbOhGipM",
+    "WandaVision_S1_E1": "https://www.youtube.com/watch?v=NgtLRWoH6Wo",
+    "WandaVision_S1_E2": "https://www.youtube.com/watch?v=52ICM2NTtHo",
+    "WandaVision_S1_E3": "https://www.youtube.com/watch?v=65EmPiJeR08",
+    "WandaVision_S1_E4": "https://www.youtube.com/watch?v=0dEcPF4Kocw",
+    "WandaVision_S1_E5": "https://www.youtube.com/watch?v=ti6hFaPfYY4",
+    "WandaVision_S1_E6": "https://www.youtube.com/watch?v=lhkFW2dO_wM",
+    "WandaVision_S1_E7": "https://www.youtube.com/watch?v=7_qsV3wUKiU",
+    "WandaVision_S1_E8": "https://www.youtube.com/watch?v=vy6z5Q-PuAk",
+    "WandaVision_S1_E9": "https://www.youtube.com/watch?v=4ytycEmT1uw",
+    "Loki_S1_E1": "https://www.youtube.com/watch?v=UVvZwSm-ne0",
+    "Loki_S1_E2": "https://www.youtube.com/watch?v=t-yVLjhKcrs",
+    "Loki_S1_E3": "https://www.youtube.com/watch?v=qnyxz3T4DOc",
+    "Loki_S1_E4": "https://www.youtube.com/watch?v=eZZYzTkx1a8",
+    "Loki_S1_E5": "https://www.youtube.com/watch?v=cB04Re6_Fp4",
+    "Loki_S1_E6": "https://www.youtube.com/watch?v=ZEdMI48kP8A",
+    "Loki_S2_E1": "https://www.youtube.com/watch?v=VfrCFeyydzg",
+    "Loki_S2_E2": "https://www.youtube.com/watch?v=mysJb-ZbQzA",
+    "Loki_S2_E3": "https://www.youtube.com/watch?v=1E_prIdsqGg",
+    "Loki_S2_E4": "https://www.youtube.com/watch?v=vA2B7Pp4O4Y",
+    "Loki_S2_E5": "https://www.youtube.com/watch?v=zMIbGyDik24",
+    "Loki_S2_E6": "https://www.youtube.com/watch?v=yLa7j3MMLhA",
+    "Moon Knight_S1_E1": "https://www.youtube.com/watch?v=oVw24yvdRYU",
+    "Moon Knight_S1_E2": "https://www.youtube.com/watch?v=Tykl0uiJ5yo",
+    "Moon Knight_S1_E3": "https://www.youtube.com/watch?v=PoJLm1lHeBA",
+    "Moon Knight_S1_E4": "https://www.youtube.com/watch?v=CdWxALuAosg",
+    "Moon Knight_S1_E5": "https://www.youtube.com/watch?v=C2Q4We-87kM",
+    "Moon Knight_S1_E6": "https://www.youtube.com/watch?v=ovttoyrgLOg",
+    "Secret Invasion_S1_E1": "https://www.youtube.com/watch?v=HmJHEKbDKAY",
+    "Secret Invasion_S1_E2": "https://www.youtube.com/watch?v=QjPpPBgTRcE",
+    "Secret Invasion_S1_E3": "https://www.youtube.com/watch?v=za-ypCn3Uts",
+    "Secret Invasion_S1_E4": "https://www.youtube.com/watch?v=_zua9qISV98",
+    "Secret Invasion_S1_E5": "https://www.youtube.com/watch?v=YUG7enQ92Kc",
+    "Secret Invasion_S1_E6": "https://www.youtube.com/watch?v=P3ZBt7QByos",
+    "She-Hulk: Attorney at Law_S1_E1": "https://www.youtube.com/watch?v=j6JgA9_mEkQ",
+    "She-Hulk: Attorney at Law_S1_E2": "https://www.youtube.com/watch?v=BPSpc95L9ys",
+    "She-Hulk: Attorney at Law_S1_E3": "https://www.youtube.com/watch?v=deBozTpDr8M",
+    "She-Hulk: Attorney at Law_S1_E4": "https://www.youtube.com/watch?v=vVMA63xCqGU",
+    "She-Hulk: Attorney at Law_S1_E5": "https://www.youtube.com/watch?v=kQmDGyGKI48",
+    "She-Hulk: Attorney at Law_S1_E6": "https://www.youtube.com/watch?v=Oznxob56dQs",
+    "She-Hulk: Attorney at Law_S1_E7": "https://www.youtube.com/watch?v=PLm5fHZW-Dw",
+    "She-Hulk: Attorney at Law_S1_E8": "https://www.youtube.com/watch?v=bwkkVXcyud0",
+    "She-Hulk: Attorney at Law_S1_E9": "https://www.youtube.com/watch?v=K3u5W-4-YLA",
+    "The Falcon and the Winter Soldier_S1_E1": "https://www.youtube.com/watch?v=5y24Mi9KZ2s",
+    "The Falcon and the Winter Soldier_S1_E2": "https://www.youtube.com/watch?v=HOw_7pMbj9g",
+    "The Falcon and the Winter Soldier_S1_E3": "https://www.youtube.com/watch?v=xHXhbw_EGL8",
+    "The Falcon and the Winter Soldier_S1_E4": "https://www.youtube.com/watch?v=BCby7JoBRgw",
+    "The Falcon and the Winter Soldier_S1_E5": "https://www.youtube.com/watch?v=Z6ARehoi_D8",
+    "The Falcon and the Winter Soldier_S1_E6": "https://www.youtube.com/watch?v=z0bNL8SqzTg",
+    "Hawkeye_S1_E1": "https://www.youtube.com/watch?v=kZfFJDmsVo8",
+    "Hawkeye_S1_E2": "https://www.youtube.com/watch?v=_2pKf-94UVU",
+    "Hawkeye_S1_E3": "https://www.youtube.com/watch?v=IC1pEvBp0V4",
+    "Hawkeye_S1_E4": "https://www.youtube.com/watch?v=UcMw9CyyU9E",
+    "Hawkeye_S1_E5": "https://www.youtube.com/watch?v=bAR-FD831xY",
+    "Hawkeye_S1_E6": "https://www.youtube.com/watch?v=kJ0HvLZ6Ivo",
+    "Ms Marvel_S1_E1": "https://www.youtube.com/watch?v=O8bZQjt0GUM",
+    "Ms Marvel_S1_E2": "https://www.youtube.com/watch?v=VhpbKt0BFrw",
+    "Ms Marvel_S1_E3": "https://www.youtube.com/watch?v=hxaQJWUFD2E",
+    "Ms Marvel_S1_E4": "https://www.youtube.com/watch?v=paMgBWj_N1c",
+    "Ms Marvel_S1_E5": "https://www.youtube.com/watch?v=bi90PY3ipcU",
+    "Ms Marvel_S1_E6": "https://www.youtube.com/watch?v=grwyCsvgCXg"
+};
+
 const flashcardWrapper = document.getElementById('flashcard-wrapper');
 const flashcard = document.getElementById('flashcard');
 const ctxSeries = document.getElementById('ctx-series');
@@ -53,6 +125,20 @@ function populateCard(card) {
     // Front
     ctxSeries.textContent = card['Series'];
     ctxSeasonEp.textContent = `SEASON ${card['Season']}, EP ${card['Episode']}`;
+    
+    // Add YouTube link logic
+    const epKey = `${card['Series']}_S${card['Season']}_E${card['Episode']}`;
+    if (EPISODE_URLS[epKey]) {
+        ctxSeasonEp.href = EPISODE_URLS[epKey];
+        ctxSeasonEp.style.textDecoration = 'underline';
+        ctxSeasonEp.style.textUnderlineOffset = '4px';
+        ctxSeasonEp.style.cursor = 'pointer';
+    } else {
+        ctxSeasonEp.removeAttribute('href');
+        ctxSeasonEp.style.textDecoration = 'none';
+        ctxSeasonEp.style.cursor = 'default';
+    }
+
     questionEl.textContent = card['Question'];
     
     // Back
