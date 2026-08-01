@@ -95,7 +95,7 @@ function updateSlideshows(card) {
     
     if (!card.Serial) return;
     
-    const match = card.Serial.match(/^([A-Za-z]+)/);
+    const match = card.Serial.match(/^([A-Za-z]+)(?=S\d+E\d+)/);
     if (!match) return;
     
     const abbrev = match[1];

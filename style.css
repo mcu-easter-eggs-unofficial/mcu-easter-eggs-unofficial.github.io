@@ -412,7 +412,7 @@ footer {
     opacity: 1;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 900px) {
     .slideshow {
         display: none; /* Hide on smaller screens to avoid overlapping flashcard */
     }
