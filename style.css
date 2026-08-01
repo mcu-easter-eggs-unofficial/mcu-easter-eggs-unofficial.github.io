@@ -31,10 +31,10 @@ body {
 /* Infinity Stones Background */
 .stone-particle {
     position: fixed;
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    filter: blur(8px);
+    filter: blur(6px);
     z-index: -2;
     animation: float 20s infinite alternate ease-in-out;
 }
@@ -43,14 +43,14 @@ body {
     background: var(--stone-space);
     top: 10%;
     left: 5%;
-    box-shadow: 0 0 20px var(--stone-space);
+    box-shadow: 0 0 25px 4px var(--stone-space);
 }
 
 .stone-mind {
     background: var(--stone-mind);
     top: 20%;
     right: 20%;
-    box-shadow: 0 0 20px var(--stone-mind);
+    box-shadow: 0 0 25px 4px var(--stone-mind);
     animation-delay: -3s;
 }
 
@@ -58,7 +58,7 @@ body {
     background: var(--stone-reality);
     top: 8%;
     left: 40%;
-    box-shadow: 0 0 20px var(--stone-reality);
+    box-shadow: 0 0 25px 4px var(--stone-reality);
     animation-delay: -7s;
 }
 
@@ -66,7 +66,7 @@ body {
     background: var(--stone-power);
     bottom: 3%;
     right: 25%;
-    box-shadow: 0 0 20px var(--stone-power);
+    box-shadow: 0 0 25px 4px var(--stone-power);
     animation-delay: -11s;
 }
 
@@ -74,7 +74,7 @@ body {
     background: var(--stone-time);
     bottom: 10%;
     left: 25%;
-    box-shadow: 0 0 20px var(--stone-time);
+    box-shadow: 0 0 25px 4px var(--stone-time);
     animation-delay: -15s;
 }
 
@@ -82,24 +82,24 @@ body {
     background: var(--stone-soul);
     top: 70%;
     right: 30%;
-    box-shadow: 0 0 20px var(--stone-soul);
+    box-shadow: 0 0 25px 4px var(--stone-soul);
     animation-delay: -18s;
 }
 
 @keyframes float {
     0% {
         transform: translateY(0) translateX(0) scale(1);
-        opacity: 0.5;
+        opacity: 0.75;
     }
 
     50% {
         transform: translateY(-30px) translateX(20px) scale(1.2);
-        opacity: 0.8;
+        opacity: 1;
     }
 
     100% {
         transform: translateY(20px) translateX(-15px) scale(0.9);
-        opacity: 0.4;
+        opacity: 0.65;
     }
 }
 
