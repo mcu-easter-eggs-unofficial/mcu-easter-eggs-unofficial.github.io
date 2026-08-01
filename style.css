@@ -64,7 +64,7 @@ body {
 
 .stone-power {
     background: var(--stone-power);
-    bottom: 15%;
+    bottom: 2%;
     right: 10%;
     box-shadow: 0 0 20px var(--stone-power);
     animation-delay: -11s;
@@ -382,7 +382,8 @@ footer {
     top: 50%;
     transform: translateY(-50%);
     width: 330px;
-    height: 185px; /* 16:9 aspect ratio */
+    height: 185px;
+    /* 16:9 aspect ratio */
     z-index: 0;
 }
 
@@ -417,7 +418,8 @@ footer {
     position: fixed;
     top: calc(50% + 107px);
     width: 330px;
-    height: 185px; /* same size as slideshow */
+    height: 185px;
+    /* same size as slideshow */
     z-index: 0;
     border-radius: 8px;
     overflow: hidden;
@@ -447,9 +449,11 @@ footer {
 }
 
 @media (max-width: 900px) {
+
     .slideshow,
     .show-poster-container {
-        display: none; /* Hide on smaller screens to avoid overlapping flashcard */
+        display: none;
+        /* Hide on smaller screens to avoid overlapping flashcard */
     }
 }
 
