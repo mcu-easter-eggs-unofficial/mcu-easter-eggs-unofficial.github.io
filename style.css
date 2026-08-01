@@ -381,17 +381,17 @@ footer {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    width: 400px;
-    height: 225px; /* 16:9 aspect ratio */
-    z-index: 10;
+    width: 330px;
+    height: 185px; /* 16:9 aspect ratio */
+    z-index: 0;
 }
 
 .slideshow-left {
-    left: 40px;
+    left: 20px;
 }
 
 .slideshow-right {
-    right: 40px;
+    right: 20px;
 }
 
 .slideshow img {
