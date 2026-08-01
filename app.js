@@ -232,3 +232,26 @@ function updateSlideshows(card) {
         }
     }, 7000);
 }
+
+// Fetch and update visitor counter
+function initVisitorCounter() {
+    const counterEl = document.getElementById('visitor-count');
+    if (!counterEl) return;
+
+    fetch('https://api.counterapi.dev/v1/mcu-easter-eggs-unofficial-github-io/visits/up')
+        .then(response => response.json())
+        .then(data => {
+            if (data && typeof data.count === 'number') {
+                counterEl.textContent = Number(data.count).toLocaleString();
+            } else {
+                counterEl.textContent = '1,000+';
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching visitor count:', err);
+            counterEl.textContent = '1,000+';
+        });
+}
+
+initVisitorCounter();
+
