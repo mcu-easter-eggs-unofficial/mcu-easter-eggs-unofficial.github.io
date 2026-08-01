@@ -7,7 +7,7 @@
     --stone-power: #9C27B0;
     --stone-time: #0F9D58;
     --stone-soul: #FF7043;
-    
+
     --wv-red: rgba(226, 54, 54, 0.4);
 }
 
@@ -39,23 +39,77 @@ body {
     animation: float 20s infinite alternate ease-in-out;
 }
 
-.stone-space { background: var(--stone-space); top: 10%; left: 15%; box-shadow: 0 0 20px var(--stone-space); }
-.stone-mind { background: var(--stone-mind); top: 20%; right: 20%; box-shadow: 0 0 20px var(--stone-mind); animation-delay: -3s;}
-.stone-reality { background: var(--stone-reality); top: 50%; left: 5%; box-shadow: 0 0 20px var(--stone-reality); animation-delay: -7s;}
-.stone-power { background: var(--stone-power); bottom: 15%; right: 10%; box-shadow: 0 0 20px var(--stone-power); animation-delay: -11s;}
-.stone-time { background: var(--stone-time); bottom: 10%; left: 25%; box-shadow: 0 0 20px var(--stone-time); animation-delay: -15s;}
-.stone-soul { background: var(--stone-soul); top: 70%; right: 30%; box-shadow: 0 0 20px var(--stone-soul); animation-delay: -18s;}
+.stone-space {
+    background: var(--stone-space);
+    top: 10%;
+    left: 15%;
+    box-shadow: 0 0 20px var(--stone-space);
+}
+
+.stone-mind {
+    background: var(--stone-mind);
+    top: 20%;
+    right: 20%;
+    box-shadow: 0 0 20px var(--stone-mind);
+    animation-delay: -3s;
+}
+
+.stone-reality {
+    background: var(--stone-reality);
+    top: 50%;
+    left: 5%;
+    box-shadow: 0 0 20px var(--stone-reality);
+    animation-delay: -7s;
+}
+
+.stone-power {
+    background: var(--stone-power);
+    bottom: 15%;
+    right: 10%;
+    box-shadow: 0 0 20px var(--stone-power);
+    animation-delay: -11s;
+}
+
+.stone-time {
+    background: var(--stone-time);
+    bottom: 10%;
+    left: 25%;
+    box-shadow: 0 0 20px var(--stone-time);
+    animation-delay: -15s;
+}
+
+.stone-soul {
+    background: var(--stone-soul);
+    top: 70%;
+    right: 30%;
+    box-shadow: 0 0 20px var(--stone-soul);
+    animation-delay: -18s;
+}
 
 @keyframes float {
-    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.5; }
-    50% { transform: translateY(-30px) translateX(20px) scale(1.2); opacity: 0.8; }
-    100% { transform: translateY(20px) translateX(-15px) scale(0.9); opacity: 0.4; }
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateY(-30px) translateX(20px) scale(1.2);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(20px) translateX(-15px) scale(0.9);
+        opacity: 0.4;
+    }
 }
 
 /* WandaVision Hex Overlay */
 .hex-overlay {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-image: radial-gradient(var(--wv-red) 1px, transparent 1px);
     background-size: 40px 40px;
     opacity: 0.05;
@@ -114,7 +168,7 @@ header {
 
 .banner-logo {
     height: 70px;
-    width: 250px;
+    width: 500px;
     object-fit: fill;
 }
 
@@ -122,7 +176,7 @@ header {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 3rem;
     color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px var(--mc-red);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px var(--mc-red);
     margin-bottom: 10px;
     letter-spacing: 2px;
 }
@@ -166,8 +220,15 @@ header {
 }
 
 @keyframes flyIn {
-    0% { transform: translateY(100vh) scale(0.5) rotate(-10deg); opacity: 0; }
-    100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+    0% {
+        transform: translateY(100vh) scale(0.5) rotate(-10deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
 }
 
 .flashcard-face {
@@ -180,14 +241,14 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+
     /* Glassmorphism */
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 
-                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 .flashcard-front {
@@ -198,8 +259,8 @@ header {
 .flashcard-back {
     transform: rotateY(180deg);
     border-color: rgba(226, 54, 54, 0.3);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 
-                0 0 30px rgba(226, 54, 54, 0.2);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(226, 54, 54, 0.2);
 }
 
 .context {
@@ -211,7 +272,7 @@ header {
     letter-spacing: 1px;
     line-height: 1.4;
     padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .highlight {
@@ -221,7 +282,8 @@ header {
     letter-spacing: 2px;
 }
 
-.question, .answer {
+.question,
+.answer {
     font-size: 1.4rem;
     text-align: center;
     flex: 1;
@@ -235,7 +297,8 @@ header {
 .reference {
     text-align: center;
     font-size: 1rem;
-    color: #4285F4; /* Space stone blue for references */
+    color: #4285F4;
+    /* Space stone blue for references */
     margin-bottom: 15px;
     background: rgba(66, 133, 244, 0.1);
     padding: 8px;
@@ -256,7 +319,8 @@ header {
     display: none !important;
 }
 
-.reveal-btn, .show-q-btn {
+.reveal-btn,
+.show-q-btn {
     align-self: center;
     width: 200px;
 }
@@ -298,7 +362,16 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .zinger { font-size: 3rem; }
-    .flashcard-wrapper { height: 500px; }
-    .question, .answer { font-size: 1.2rem; }
+    .zinger {
+        font-size: 3rem;
+    }
+
+    .flashcard-wrapper {
+        height: 500px;
+    }
+
+    .question,
+    .answer {
+        font-size: 1.2rem;
+    }
 }
