@@ -66,11 +66,13 @@ body {
 }
 
 header {
-    padding: 20px;
+    padding: 10px 20px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .marvel-btn {
@@ -106,7 +108,7 @@ header {
 
 .title-section {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .banner-logo {
@@ -116,7 +118,7 @@ header {
 
 .zinger {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 4rem;
+    font-size: 3rem;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px var(--mc-red);
     margin-bottom: 10px;
