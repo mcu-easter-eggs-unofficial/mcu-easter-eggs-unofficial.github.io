@@ -65,7 +65,7 @@ body {
 .stone-power {
     background: var(--stone-power);
     bottom: 2%;
-    right: 10%;
+    right: 16%;
     box-shadow: 0 0 20px var(--stone-power);
     animation-delay: -11s;
 }
