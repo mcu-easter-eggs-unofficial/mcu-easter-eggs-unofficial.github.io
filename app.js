@@ -71,7 +71,12 @@ const EPISODE_URLS = {
     "Ms Marvel_S1_E3": "https://www.youtube.com/watch?v=hxaQJWUFD2E",
     "Ms Marvel_S1_E4": "https://www.youtube.com/watch?v=paMgBWj_N1c",
     "Ms Marvel_S1_E5": "https://www.youtube.com/watch?v=bi90PY3ipcU",
-    "Ms Marvel_S1_E6": "https://www.youtube.com/watch?v=grwyCsvgCXg"
+    "Ms Marvel_S1_E6": "https://www.youtube.com/watch?v=grwyCsvgCXg",
+    "Echo_S1_E1": "https://www.youtube.com/watch?v=YRtFBv7Ta8U",
+    "Echo_S1_E2": "https://www.youtube.com/watch?v=F3VdPN4PmgA",
+    "Echo_S1_E3": "https://www.youtube.com/watch?v=6wtHBPvEyWg",
+    "Echo_S1_E4": "https://www.youtube.com/watch?v=YnCyQQYSRKo",
+    "Echo_S1_E5": "https://www.youtube.com/watch?v=QGZIEnfoE0I"
 };
 
 const flashcardWrapper = document.getElementById('flashcard-wrapper');

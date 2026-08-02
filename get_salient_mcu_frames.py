@@ -93,6 +93,13 @@ EPISODE_DATA = [
     {"series": "Ms Marvel", "serial": "MM", "season": 1, "episode": 4, "url": "https://www.youtube.com/watch?v=paMgBWj_N1c"},
     {"series": "Ms Marvel", "serial": "MM", "season": 1, "episode": 5, "url": "https://www.youtube.com/watch?v=bi90PY3ipcU"},
     {"series": "Ms Marvel", "serial": "MM", "season": 1, "episode": 6, "url": "https://www.youtube.com/watch?v=grwyCsvgCXg"},
+
+    # --- Echo (Season 1) ---
+    {"series": "Echo", "serial": "ECHO", "season": 1, "episode": 1, "url": "https://www.youtube.com/watch?v=YRtFBv7Ta8U"},
+    {"series": "Echo", "serial": "ECHO", "season": 1, "episode": 2, "url": "https://www.youtube.com/watch?v=F3VdPN4PmgA"},
+    {"series": "Echo", "serial": "ECHO", "season": 1, "episode": 3, "url": "https://www.youtube.com/watch?v=6wtHBPvEyWg"},
+    {"series": "Echo", "serial": "ECHO", "season": 1, "episode": 4, "url": "https://www.youtube.com/watch?v=YnCyQQYSRKo"},
+    {"series": "Echo", "serial": "ECHO", "season": 1, "episode": 5, "url": "https://www.youtube.com/watch?v=QGZIEnfoE0I"},
 ]
 
 def get_stream_url(youtube_url):
