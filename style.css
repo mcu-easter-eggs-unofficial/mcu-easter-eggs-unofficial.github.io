@@ -241,6 +241,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
 
     /* Glassmorphism */
     background: rgba(255, 255, 255, 0.05);
@@ -249,6 +250,28 @@ header {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
         inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.flashcard-face::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background-image: var(--card-poster-bg, none);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.5s ease;
+}
+
+.flashcard-face > * {
+    position: relative;
+    z-index: 1;
 }
 
 .flashcard-front {
@@ -502,6 +525,11 @@ footer {
     .show-poster-container {
         display: none !important;
         /* Hide on smaller screens to avoid overlapping flashcard */
+    }
+
+    .flashcard-face::before {
+        opacity: 0.16;
+        filter: saturate(1.2) brightness(0.85);
     }
 }
 

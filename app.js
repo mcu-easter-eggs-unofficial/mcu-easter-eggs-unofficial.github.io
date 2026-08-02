@@ -196,11 +196,18 @@ function updateSlideshows(card) {
     const posterLeft = document.getElementById('poster-left');
     const posterRight = document.getElementById('poster-right');
     const posterSrc = `images/show_posters/${abbrev}.jpeg`;
+    const flashcardEl = document.getElementById('flashcard');
     
     if (posterLeft) {
         posterLeft.src = posterSrc;
-        posterLeft.onerror = () => { posterLeft.parentElement.classList.add('poster-hidden'); };
-        posterLeft.onload = () => { posterLeft.parentElement.classList.remove('poster-hidden'); };
+        posterLeft.onerror = () => { 
+            posterLeft.parentElement.classList.add('poster-hidden'); 
+            if (flashcardEl) flashcardEl.style.setProperty('--card-poster-bg', 'none');
+        };
+        posterLeft.onload = () => { 
+            posterLeft.parentElement.classList.remove('poster-hidden'); 
+            if (flashcardEl) flashcardEl.style.setProperty('--card-poster-bg', `url('${posterSrc}')`);
+        };
     }
     if (posterRight) {
         posterRight.src = posterSrc;
