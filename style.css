@@ -361,22 +361,11 @@ footer {
     text-shadow: 0 0 15px #FFD700;
 }
 
-@media (max-width: 768px) {
-    .zinger {
-        font-size: 3rem;
-    }
-
-    .flashcard-wrapper {
-        height: 500px;
-    }
-
-    .question,
-    .answer {
-        font-size: 1.2rem;
-    }
+.poster-hidden {
+    display: none !important;
 }
 
-/* Slideshow Styles */
+/* Slideshow Styles (Desktop Default) */
 .slideshow {
     position: fixed;
     top: 50%;
@@ -413,7 +402,7 @@ footer {
     opacity: 1;
 }
 
-/* Show Poster Styles (Positioned directly below each slideshow) */
+/* Show Poster Styles (Desktop Default: Positioned directly below each slideshow) */
 .show-poster-container {
     position: fixed;
     top: calc(50% + 107px);
@@ -448,16 +437,7 @@ footer {
     transform: scale(1.03);
 }
 
-@media (max-width: 900px) {
-
-    .slideshow,
-    .show-poster-container {
-        display: none;
-        /* Hide on smaller screens to avoid overlapping flashcard */
-    }
-}
-
-/* Developer Credit Styles */
+/* Developer Credit Styles (Desktop Default) */
 .developer-credit {
     position: fixed;
     bottom: 15px;
@@ -485,7 +465,7 @@ footer {
     text-shadow: 0 0 10px var(--mc-red);
 }
 
-/* Visitor Counter Styles */
+/* Visitor Counter Styles (Desktop Default) */
 .visitor-counter {
     position: fixed;
     bottom: 15px;
@@ -512,4 +492,124 @@ footer {
 .visitor-counter:hover #visitor-count {
     color: #ffffff;
     text-shadow: 0 0 10px var(--mc-red);
+}
+
+/* ==========================================================================
+   Responsive Media Queries
+   ========================================================================== */
+@media (max-width: 1050px) {
+    .slideshow,
+    .show-poster-container {
+        display: none !important;
+        /* Hide on smaller screens to avoid overlapping flashcard */
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 12px 16px;
+        gap: 10px;
+    }
+
+    .banner-logo {
+        width: auto;
+        max-width: 55%;
+        height: auto;
+        max-height: 55px;
+        object-fit: contain;
+    }
+
+    .marvel-btn {
+        padding: 8px 14px;
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+
+    .container {
+        padding: 10px 15px;
+    }
+
+    .zinger {
+        font-size: 2.2rem;
+        line-height: 1.1;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+        padding: 0 10px;
+    }
+
+    .flashcard-wrapper {
+        height: 480px;
+    }
+
+    .flashcard-face {
+        padding: 24px 18px;
+    }
+
+    .context {
+        font-size: 0.82rem;
+        padding-bottom: 12px;
+    }
+
+    .question,
+    .answer {
+        font-size: 1.15rem;
+        line-height: 1.5;
+        padding: 12px 0;
+    }
+
+    .reveal-btn,
+    .show-q-btn {
+        width: 180px;
+        padding: 10px 16px;
+    }
+
+    footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 20px 15px 25px;
+    }
+
+    .developer-credit,
+    .visitor-counter {
+        position: static;
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .credit-banner {
+        width: 100%;
+        max-width: 450px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .zinger {
+        font-size: 1.85rem;
+    }
+
+    .flashcard-wrapper {
+        height: 500px;
+    }
+
+    .question,
+    .answer {
+        font-size: 1.05rem;
+    }
+
+    .developer-credit,
+    .visitor-counter {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
 }

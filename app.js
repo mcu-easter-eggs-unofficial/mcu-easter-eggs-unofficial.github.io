@@ -199,13 +199,13 @@ function updateSlideshows(card) {
     
     if (posterLeft) {
         posterLeft.src = posterSrc;
-        posterLeft.onerror = () => { posterLeft.parentElement.style.display = 'none'; };
-        posterLeft.onload = () => { posterLeft.parentElement.style.display = 'block'; };
+        posterLeft.onerror = () => { posterLeft.parentElement.classList.add('poster-hidden'); };
+        posterLeft.onload = () => { posterLeft.parentElement.classList.remove('poster-hidden'); };
     }
     if (posterRight) {
         posterRight.src = posterSrc;
-        posterRight.onerror = () => { posterRight.parentElement.style.display = 'none'; };
-        posterRight.onload = () => { posterRight.parentElement.style.display = 'block'; };
+        posterRight.onerror = () => { posterRight.parentElement.classList.add('poster-hidden'); };
+        posterRight.onload = () => { posterRight.parentElement.classList.remove('poster-hidden'); };
     }
 
     let loadedCount = 0;
