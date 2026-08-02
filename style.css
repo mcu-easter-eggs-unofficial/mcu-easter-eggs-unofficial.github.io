@@ -546,7 +546,7 @@ footer {
     }
 
     .flashcard-wrapper {
-        height: 350px;
+        height: 370px;
     }
 
     .flashcard-face {
@@ -566,9 +566,10 @@ footer {
 
     .question,
     .answer {
-        font-size: 1.08rem;
-        line-height: 1.4;
-        padding: 8px 0;
+        font-size: 1.25rem;
+        font-weight: 500;
+        line-height: 1.45;
+        padding: 6px 0;
     }
 
     .reference {
@@ -651,7 +652,7 @@ footer {
     }
 
     .flashcard-wrapper {
-        height: 330px;
+        height: 360px;
     }
 
     .flashcard-face {
@@ -669,8 +670,9 @@ footer {
 
     .question,
     .answer {
-        font-size: 0.98rem;
-        line-height: 1.32;
+        font-size: 1.18rem;
+        font-weight: 500;
+        line-height: 1.4;
         padding: 6px 0;
     }
 
