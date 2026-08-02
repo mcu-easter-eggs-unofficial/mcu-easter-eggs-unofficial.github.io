@@ -1,5 +1,6 @@
 import os
 import shutil
+import argparse
 import cv2
 import yt_dlp
 
@@ -194,16 +195,49 @@ def extract_salient_frames(item):
     return target_dir
 
 def main():
+    parser = argparse.ArgumentParser(description="MCU Easter Egg Frame Extractor")
+    parser.add_argument(
+        "-s", "--serials",
+        nargs="+",
+        help="List of series serials to extract (e.g. -s AAA WV or --serials AAA,FATWS). If omitted, all series will be processed."
+    )
+    args = parser.parse_args()
+
+    available_serials = sorted(list({item["serial"] for item in EPISODE_DATA}))
+
+    if args.serials:
+        selected_serials = set()
+        for s in args.serials:
+            for part in s.split(","):
+                clean = part.strip().upper()
+                if clean:
+                    selected_serials.add(clean)
+
+        episodes_to_process = [item for item in EPISODE_DATA if item["serial"].upper() in selected_serials]
+        invalid_serials = selected_serials - {s.upper() for s in available_serials}
+        if invalid_serials:
+            print(f"[Warning] Unknown serial(s): {', '.join(sorted(invalid_serials))}")
+            print(f"Available serials: {', '.join(available_serials)}\n")
+
+        if not episodes_to_process:
+            print("[Error] No matching episodes found for the provided serial(s). Exiting.")
+            return
+    else:
+        episodes_to_process = EPISODE_DATA
+
     print("=" * 60)
     print("MCU Easter Egg Frame Extractor")
-    print(f"Saving all images to: {os.path.abspath(BASE_DIR)}")
+    print(f"Saving images to: {os.path.abspath(BASE_DIR)}")
+    if args.serials:
+        print(f"Selected serial(s): {', '.join(sorted(selected_serials))}")
+    print(f"Total videos to process: {len(episodes_to_process)}")
     print("=" * 60)
 
-    for item in EPISODE_DATA:
+    for item in episodes_to_process:
         extract_salient_frames(item)
 
     print("\n" + "=" * 60)
-    print("All 69 episode folders have been successfully processed!")
+    print(f"Finished processing {len(episodes_to_process)} video(s)!")
     print("=" * 60)
 
 if __name__ == "__main__":
