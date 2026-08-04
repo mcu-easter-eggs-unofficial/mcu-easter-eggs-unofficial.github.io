@@ -88,10 +88,230 @@ const answerEl = document.getElementById('card-answer');
 const referenceEl = document.getElementById('card-reference');
 const refText = document.getElementById('ref-text');
 const cautionEl = document.getElementById('card-caution');
+const vfxOverlay = document.getElementById('vfx-overlay');
 
 const newCardBtn = document.getElementById('new-card-btn');
 const revealBtn = document.getElementById('reveal-btn');
 const showQBtn = document.getElementById('show-q-btn');
+
+let isTransitioning = false;
+
+const ALL_POWER_CLASSES = [
+    'power-wandavision', 'power-agatha', 'power-loki', 'power-shehulk',
+    'power-hawkeye', 'power-moonknight', 'power-falcon', 'power-msmarvel',
+    'power-secretinvasion', 'power-echo', 'power-arrival'
+];
+
+// Map series/serial to signature MCU hero power
+function getHeroPower(seriesName, serial) {
+    if (!seriesName && !serial) return { type: 'wandavision', class: 'power-wandavision', vfx: 'vfx-chaos-ring' };
+    
+    const name = (seriesName || '').toLowerCase();
+    const ser = (serial || '').toUpperCase();
+    
+    if (name.includes('wanda') || ser.startsWith('WV')) {
+        return { type: 'wandavision', class: 'power-wandavision', vfx: 'vfx-chaos-ring' };
+    }
+    if (name.includes('agatha') || ser.startsWith('AAA')) {
+        return { type: 'agatha', class: 'power-agatha', vfx: 'vfx-coven-aura' };
+    }
+    if (name.includes('loki') || ser.startsWith('LOKI')) {
+        return { type: 'loki', class: 'power-loki', vfx: 'vfx-tva-grid' };
+    }
+    if (name.includes('hulk') || ser.startsWith('SH')) {
+        return { type: 'shehulk', class: 'power-shehulk', vfx: 'vfx-gamma-crack' };
+    }
+    if (name.includes('hawkeye') || ser.startsWith('HK')) {
+        return { type: 'hawkeye', class: 'power-hawkeye', vfx: 'vfx-arrow-streak' };
+    }
+    if (name.includes('moon') || ser.startsWith('MK')) {
+        return { type: 'moonknight', class: 'power-moonknight', vfx: 'vfx-crescent-blade' };
+    }
+    if (name.includes('falcon') || name.includes('winter') || ser.startsWith('TFATWS')) {
+        return { type: 'falcon', class: 'power-falcon', vfx: 'vfx-shield-disc' };
+    }
+    if (name.includes('ms marvel') || ser.startsWith('MM')) {
+        return { type: 'msmarvel', class: 'power-msmarvel', vfx: 'vfx-noor-crystals' };
+    }
+    if (name.includes('secret') || name.includes('invasion') || ser.startsWith('SI')) {
+        return { type: 'secretinvasion', class: 'power-secretinvasion', vfx: 'vfx-skrull-bars' };
+    }
+    if (name.includes('echo') || ser.startsWith('ECHO')) {
+        return { type: 'echo', class: 'power-echo', vfx: 'vfx-echo-rings' };
+    }
+    
+    return { type: 'wandavision', class: 'power-wandavision', vfx: 'vfx-chaos-ring' };
+}
+
+// Zero-dependency browser-native Web Audio SFX synthesizer
+let audioCtx = null;
+
+function playHeroSfx(heroType) {
+    try {
+        if (!audioCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) audioCtx = new AudioContext();
+        }
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        const now = audioCtx.currentTime;
+        const masterGain = audioCtx.createGain();
+        masterGain.gain.setValueAtTime(0.18, now);
+        masterGain.connect(audioCtx.destination);
+
+        switch (heroType) {
+            case 'wandavision': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(320, now);
+                osc.frequency.exponentialRampToValueAtTime(80, now + 0.42);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.42);
+                break;
+            }
+            case 'agatha': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.linearRampToValueAtTime(440, now + 0.2);
+                osc.frequency.exponentialRampToValueAtTime(55, now + 0.45);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.45);
+                break;
+            }
+            case 'shehulk': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(160, now);
+                osc.frequency.exponentialRampToValueAtTime(30, now + 0.38);
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.38);
+                break;
+            }
+            case 'hawkeye': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, now);
+                osc.frequency.exponentialRampToValueAtTime(220, now + 0.18);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.4);
+                break;
+            }
+            case 'loki': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(520, now);
+                osc.frequency.exponentialRampToValueAtTime(130, now + 0.42);
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.42);
+                break;
+            }
+            case 'moonknight': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1200, now);
+                osc.frequency.exponentialRampToValueAtTime(300, now + 0.32);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.32);
+                break;
+            }
+            case 'falcon': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(650, now);
+                osc.frequency.exponentialRampToValueAtTime(200, now + 0.35);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.35);
+                break;
+            }
+            case 'msmarvel': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(740, now);
+                osc.frequency.exponentialRampToValueAtTime(980, now + 0.2);
+                osc.frequency.exponentialRampToValueAtTime(370, now + 0.42);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.42);
+                break;
+            }
+            case 'secretinvasion': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(200, now);
+                osc.frequency.setValueAtTime(450, now + 0.1);
+                osc.frequency.setValueAtTime(150, now + 0.25);
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.4);
+                break;
+            }
+            case 'echo': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(90, now);
+                osc.frequency.linearRampToValueAtTime(180, now + 0.2);
+                osc.frequency.exponentialRampToValueAtTime(45, now + 0.45);
+                gain.gain.setValueAtTime(0.35, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.45);
+                break;
+            }
+        }
+    } catch (e) {
+        // Silently catch audio context restrictions
+    }
+}
 
 // Load CSV Data
 Papa.parse('easter-eggs.csv', {
@@ -101,29 +321,86 @@ Papa.parse('easter-eggs.csv', {
         // Filter out empty rows just in case
         easterEggs = results.data.filter(row => row.Series && row.Question);
         if(easterEggs.length > 0) {
-            loadRandomCard();
+            loadRandomCard(true);
             flashcardWrapper.classList.remove('hidden');
         }
     }
 });
 
-function loadRandomCard() {
+// Initial load (or refresh): Standard load without destruction VFX
+function loadRandomCard(isInitial = false) {
     if (easterEggs.length === 0) return;
     
     // Pick random index
     const randomIndex = Math.floor(Math.random() * easterEggs.length);
     currentCard = easterEggs[randomIndex];
     
-    // Reset flip state
+    // Reset flip state & any active power classes
     flashcard.classList.remove('flipped');
+    flashcard.classList.remove(...ALL_POWER_CLASSES);
+    if (vfxOverlay) vfxOverlay.innerHTML = '';
     
-    // Re-trigger fly-in animation
+    // Re-trigger fly-in animation for initial load
     flashcardWrapper.classList.remove('fly-in');
     void flashcardWrapper.offsetWidth; // Trigger reflow
     flashcardWrapper.classList.add('fly-in');
 
     populateCard(currentCard);
     updateSlideshows(currentCard);
+}
+
+// "New Flashcard" button transition: Hero power destruction VFX
+function transitionToNextCard() {
+    if (isTransitioning || easterEggs.length === 0) return;
+    isTransitioning = true;
+    newCardBtn.disabled = true;
+
+    // Pick next card (avoid immediate repeat if more than 1 item)
+    let nextIndex = Math.floor(Math.random() * easterEggs.length);
+    if (easterEggs.length > 1 && easterEggs[nextIndex] === currentCard) {
+        nextIndex = (nextIndex + 1) % easterEggs.length;
+    }
+    const nextCard = easterEggs[nextIndex];
+
+    // Determine the signature power of the incoming series
+    const power = getHeroPower(nextCard.Series, nextCard.Serial);
+
+    // Play synthesized Hero SFX
+    playHeroSfx(power.type);
+
+    // Clean up previous power classes and VFX
+    flashcard.classList.remove(...ALL_POWER_CLASSES);
+    if (vfxOverlay) vfxOverlay.innerHTML = '';
+
+    // Apply hero destruction animation to the current card
+    flashcard.classList.add(power.class);
+
+    // Render hero-specific VFX overlay element
+    if (vfxOverlay && power.vfx) {
+        const vfxEl = document.createElement('div');
+        vfxEl.className = power.vfx;
+        vfxOverlay.appendChild(vfxEl);
+    }
+
+    // Midpoint: Swap card content, reset flip state, and trigger arrival animation
+    setTimeout(() => {
+        currentCard = nextCard;
+        flashcard.classList.remove('flipped');
+        flashcard.classList.remove(power.class);
+        if (vfxOverlay) vfxOverlay.innerHTML = '';
+
+        populateCard(currentCard);
+        updateSlideshows(currentCard);
+
+        // Card Arrival
+        flashcard.classList.add('power-arrival');
+
+        setTimeout(() => {
+            flashcard.classList.remove('power-arrival');
+            isTransitioning = false;
+            newCardBtn.disabled = false;
+        }, 350);
+    }, 420);
 }
 
 function populateCard(card) {
@@ -166,7 +443,7 @@ function populateCard(card) {
 }
 
 // Event Listeners
-newCardBtn.addEventListener('click', loadRandomCard);
+newCardBtn.addEventListener('click', transitionToNextCard);
 
 revealBtn.addEventListener('click', () => {
     flashcard.classList.add('flipped');
