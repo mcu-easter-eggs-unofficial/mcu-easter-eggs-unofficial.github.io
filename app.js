@@ -523,9 +523,12 @@ function getShareSnippet(card) {
     const seasonEp = card.Season && card.Episode ? ` (S${card.Season}E${card.Episode})` : '';
     const question = card.Question || '';
     
+    const bodyText = `🎯 MCU Easter Egg Challenge!\n📺 ${series}${seasonEp}\n\n"${question}"\n\nThink you know the answer? Test your Marvel knowledge here:`;
+
     return {
         title: `MCU Easter Egg Challenge: ${series}`,
-        text: `🎯 MCU Easter Egg Challenge!\n📺 ${series}${seasonEp}\n\n"${question}"\n\nThink you know the answer? Test your Marvel knowledge here:\n👉 ${shareUrl}`,
+        text: bodyText,
+        fullText: `${bodyText}\n👉 ${shareUrl}`,
         url: shareUrl
     };
 }
@@ -544,7 +547,8 @@ async function handleChallengeShare(e) {
         try {
             await navigator.share({
                 title: shareData.title,
-                text: shareData.text
+                text: shareData.text,
+                url: shareData.url
             });
             showToast('⚔️ Challenge Shared!');
             return;
@@ -554,7 +558,7 @@ async function handleChallengeShare(e) {
     }
 
     // Desktop or clipboard copy
-    const copyText = shareData.text;
+    const copyText = shareData.fullText;
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(copyText).then(() => {
             showToast('⚔️ Challenge Copied to Clipboard!');
