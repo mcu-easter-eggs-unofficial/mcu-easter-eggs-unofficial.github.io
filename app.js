@@ -617,6 +617,28 @@ showQBtn.addEventListener('click', () => {
 if (challengeBtnFront) challengeBtnFront.addEventListener('click', handleChallengeShare);
 if (challengeBtnBack) challengeBtnBack.addEventListener('click', handleChallengeShare);
 
+// Touch swipe to flip card (mobile/tablet)
+(function initSwipeToFlip() {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const SWIPE_THRESHOLD = 50;
+
+    flashcard.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    flashcard.addEventListener('touchend', function(e) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+
+        // Only count horizontal swipes (ignore vertical scrolls)
+        if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+            flashcard.classList.toggle('flipped');
+        }
+    }, { passive: true });
+})();
+
 function updateSlideshows(card) {
     const leftContainer = document.getElementById('slideshow-left');
     const rightContainer = document.getElementById('slideshow-right');
