@@ -619,22 +619,35 @@ if (challengeBtnBack) challengeBtnBack.addEventListener('click', handleChallenge
 
 // Touch swipe to flip card (mobile/tablet)
 (function initSwipeToFlip() {
-    let touchStartX = 0;
-    let touchStartY = 0;
-    const SWIPE_THRESHOLD = 50;
+    let startX = 0;
+    let startY = 0;
+    let swiping = false;
+    const SWIPE_THRESHOLD = 40;
+    const target = flashcardWrapper;
 
-    flashcardWrapper.addEventListener('touchstart', function(e) {
-        touchStartX = e.changedTouches[0].clientX;
-        touchStartY = e.changedTouches[0].clientY;
+    target.addEventListener('touchstart', function(e) {
+        const t = e.touches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+        swiping = false;
     }, { passive: true });
 
-    flashcardWrapper.addEventListener('touchend', function(e) {
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        const dy = e.changedTouches[0].clientY - touchStartY;
+    target.addEventListener('touchmove', function(e) {
+        if (swiping) { e.preventDefault(); return; }
+        const t = e.touches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        // Once we detect a clear horizontal swipe, lock it in and prevent scroll
+        if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy) * 1.5) {
+            swiping = true;
+            e.preventDefault();
+        }
+    }, { passive: false });
 
-        // Only count horizontal swipes (ignore vertical scrolls)
-        if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+    target.addEventListener('touchend', function() {
+        if (swiping) {
             flashcard.classList.toggle('flipped');
+            swiping = false;
         }
     }, { passive: true });
 })();
