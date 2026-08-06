@@ -544,8 +544,7 @@ async function handleChallengeShare(e) {
         try {
             await navigator.share({
                 title: shareData.title,
-                text: shareData.text,
-                url: shareData.url
+                text: shareData.text
             });
             showToast('⚔️ Challenge Shared!');
             return;
