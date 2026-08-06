@@ -623,12 +623,12 @@ if (challengeBtnBack) challengeBtnBack.addEventListener('click', handleChallenge
     let touchStartY = 0;
     const SWIPE_THRESHOLD = 50;
 
-    flashcard.addEventListener('touchstart', function(e) {
+    flashcardWrapper.addEventListener('touchstart', function(e) {
         touchStartX = e.changedTouches[0].clientX;
         touchStartY = e.changedTouches[0].clientY;
     }, { passive: true });
 
-    flashcard.addEventListener('touchend', function(e) {
+    flashcardWrapper.addEventListener('touchend', function(e) {
         const dx = e.changedTouches[0].clientX - touchStartX;
         const dy = e.changedTouches[0].clientY - touchStartY;
 
