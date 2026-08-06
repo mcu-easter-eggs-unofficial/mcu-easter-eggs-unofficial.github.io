@@ -93,6 +93,8 @@ const vfxOverlay = document.getElementById('vfx-overlay');
 const newCardBtn = document.getElementById('new-card-btn');
 const revealBtn = document.getElementById('reveal-btn');
 const showQBtn = document.getElementById('show-q-btn');
+const challengeBtnFront = document.getElementById('challenge-btn-front');
+const challengeBtnBack = document.getElementById('challenge-btn-back');
 
 let isTransitioning = false;
 
@@ -198,7 +200,7 @@ function playHeroSfx(heroType) {
                 osc.type = 'triangle';
                 osc.frequency.setValueAtTime(160, now);
                 osc.frequency.exponentialRampToValueAtTime(30, now + 0.38);
-                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.setValueAtTime(0.35, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
                 osc.connect(gain);
                 gain.connect(masterGain);
@@ -209,10 +211,25 @@ function playHeroSfx(heroType) {
             case 'hawkeye': {
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, now);
-                osc.frequency.exponentialRampToValueAtTime(220, now + 0.18);
-                gain.gain.setValueAtTime(0.25, now);
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(800, now);
+                osc.frequency.exponentialRampToValueAtTime(120, now + 0.25);
+                gain.gain.setValueAtTime(0.22, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.25);
+                break;
+            }
+            case 'loki': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.linearRampToValueAtTime(660, now + 0.15);
+                osc.frequency.exponentialRampToValueAtTime(110, now + 0.4);
+                gain.gain.setValueAtTime(0.12, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
                 osc.connect(gain);
                 gain.connect(masterGain);
@@ -220,40 +237,28 @@ function playHeroSfx(heroType) {
                 osc.stop(now + 0.4);
                 break;
             }
-            case 'loki': {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'square';
-                osc.frequency.setValueAtTime(520, now);
-                osc.frequency.exponentialRampToValueAtTime(130, now + 0.42);
-                gain.gain.setValueAtTime(0.12, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
-                osc.connect(gain);
-                gain.connect(masterGain);
-                osc.start(now);
-                osc.stop(now + 0.42);
-                break;
-            }
             case 'moonknight': {
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(1200, now);
-                osc.frequency.exponentialRampToValueAtTime(300, now + 0.32);
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+                osc.frequency.setValueAtTime(700, now);
+                osc.frequency.linearRampToValueAtTime(1400, now + 0.1);
+                osc.frequency.exponentialRampToValueAtTime(200, now + 0.35);
+                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
                 osc.connect(gain);
                 gain.connect(masterGain);
                 osc.start(now);
-                osc.stop(now + 0.32);
+                osc.stop(now + 0.35);
                 break;
             }
             case 'falcon': {
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(650, now);
-                osc.frequency.exponentialRampToValueAtTime(200, now + 0.35);
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(440, now);
+                osc.frequency.linearRampToValueAtTime(880, now + 0.08);
+                osc.frequency.exponentialRampToValueAtTime(220, now + 0.35);
                 gain.gain.setValueAtTime(0.25, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
                 osc.connect(gain);
@@ -266,40 +271,10 @@ function playHeroSfx(heroType) {
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(740, now);
-                osc.frequency.exponentialRampToValueAtTime(980, now + 0.2);
-                osc.frequency.exponentialRampToValueAtTime(370, now + 0.42);
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.linearRampToValueAtTime(1046.5, now + 0.18);
+                osc.frequency.exponentialRampToValueAtTime(261.63, now + 0.45);
                 gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
-                osc.connect(gain);
-                gain.connect(masterGain);
-                osc.start(now);
-                osc.stop(now + 0.42);
-                break;
-            }
-            case 'secretinvasion': {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(200, now);
-                osc.frequency.setValueAtTime(450, now + 0.1);
-                osc.frequency.setValueAtTime(150, now + 0.25);
-                gain.gain.setValueAtTime(0.12, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-                osc.connect(gain);
-                gain.connect(masterGain);
-                osc.start(now);
-                osc.stop(now + 0.4);
-                break;
-            }
-            case 'echo': {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(90, now);
-                osc.frequency.linearRampToValueAtTime(180, now + 0.2);
-                osc.frequency.exponentialRampToValueAtTime(45, now + 0.45);
-                gain.gain.setValueAtTime(0.35, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
                 osc.connect(gain);
                 gain.connect(masterGain);
@@ -307,10 +282,70 @@ function playHeroSfx(heroType) {
                 osc.stop(now + 0.45);
                 break;
             }
+            case 'secretinvasion': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(180, now);
+                osc.frequency.setValueAtTime(360, now + 0.1);
+                osc.frequency.setValueAtTime(90, now + 0.22);
+                osc.frequency.exponentialRampToValueAtTime(40, now + 0.42);
+                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.42);
+                break;
+            }
+            case 'echo': {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(140, now);
+                osc.frequency.linearRampToValueAtTime(280, now + 0.12);
+                osc.frequency.exponentialRampToValueAtTime(45, now + 0.42);
+                gain.gain.setValueAtTime(0.28, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                osc.stop(now + 0.42);
+                break;
+            }
+            default:
+                break;
         }
     } catch (e) {
-        // Silently catch audio context restrictions
+        // AudioContext error fail-safe
     }
+}
+
+// Clean URL query parameters so subsequent reloads are always random
+function clearUrlQuery() {
+    try {
+        if (window.location.search || window.location.hash) {
+            const cleanUrl = window.location.pathname;
+            window.history.replaceState({}, '', cleanUrl);
+        }
+    } catch (e) {
+        // Safe fallback
+    }
+}
+
+// Display a specific card directly (used when opening a friend's challenge link)
+function displayDirectCard(card) {
+    currentCard = card;
+    flashcard.classList.remove('flipped');
+    flashcard.classList.remove(...ALL_POWER_CLASSES);
+    if (vfxOverlay) vfxOverlay.innerHTML = '';
+    
+    flashcardWrapper.classList.remove('fly-in');
+    void flashcardWrapper.offsetWidth; // Reflow
+    flashcardWrapper.classList.add('fly-in');
+
+    populateCard(currentCard);
+    updateSlideshows(currentCard);
 }
 
 // Load CSV Data
@@ -320,14 +355,28 @@ Papa.parse('easter-eggs.csv', {
     complete: function(results) {
         // Filter out empty rows just in case
         easterEggs = results.data.filter(row => row.Series && row.Question);
-        if(easterEggs.length > 0) {
-            loadRandomCard(true);
+        if (easterEggs.length > 0) {
+            // Check for direct card link in URL query (?card=SERIAL) or hash (#SERIAL)
+            const urlParams = new URLSearchParams(window.location.search);
+            const requestedSerial = urlParams.get('card') || (window.location.hash ? window.location.hash.replace(/^#/, '') : null);
+            
+            let targetCard = null;
+            if (requestedSerial) {
+                const cleanRequested = requestedSerial.trim().toUpperCase();
+                targetCard = easterEggs.find(c => (c.Serial || '').trim().toUpperCase() === cleanRequested);
+            }
+
+            if (targetCard) {
+                displayDirectCard(targetCard);
+            } else {
+                loadRandomCard(true);
+            }
             flashcardWrapper.classList.remove('hidden');
         }
     }
 });
 
-// Initial load (or refresh): Standard load without destruction VFX
+// Initial load (or refresh): Purely random card
 function loadRandomCard(isInitial = false) {
     if (easterEggs.length === 0) return;
     
@@ -354,6 +403,7 @@ function transitionToNextCard() {
     if (isTransitioning || easterEggs.length === 0) return;
     isTransitioning = true;
     newCardBtn.disabled = true;
+    clearUrlQuery(); // Reset URL query so any future reload is fully random
 
     // Pick next card (avoid immediate repeat if more than 1 item)
     let nextIndex = Math.floor(Math.random() * easterEggs.length);
@@ -442,6 +492,116 @@ function populateCard(card) {
     }
 }
 
+// Toast Notification Manager
+let toastTimeout = null;
+function showToast(message) {
+    const toast = document.getElementById('marvel-toast');
+    if (!toast) return;
+    const toastMsg = toast.querySelector('.toast-message');
+    if (toastMsg) toastMsg.textContent = message;
+    
+    toast.classList.remove('hidden');
+    toast.classList.remove('toast-hide');
+    toast.classList.add('toast-show');
+
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+        toast.classList.remove('toast-show');
+        toast.classList.add('toast-hide');
+        setTimeout(() => {
+            toast.classList.add('hidden');
+        }, 300);
+    }, 2800);
+}
+
+// Build Share Payload
+function getShareSnippet(card) {
+    if (!card) return null;
+    const cardId = card.Serial || '';
+    const shareUrl = `${window.location.origin}${window.location.pathname}?card=${encodeURIComponent(cardId)}`;
+    const series = card.Series || 'MCU';
+    const seasonEp = card.Season && card.Episode ? ` (S${card.Season}E${card.Episode})` : '';
+    const question = card.Question || '';
+    
+    return {
+        title: `MCU Easter Egg Challenge: ${series}`,
+        text: `🎯 MCU Easter Egg Challenge!\n📺 ${series}${seasonEp}\n\n"${question}"\n\nThink you know the answer? Test your Marvel knowledge here:\n👉 ${shareUrl}`,
+        url: shareUrl
+    };
+}
+
+// Handle "Challenge a Friend" click
+async function handleChallengeShare(e) {
+    if (e) e.stopPropagation();
+    if (!currentCard) return;
+
+    const shareData = getShareSnippet(currentCard);
+    if (!shareData) return;
+
+    // Use Web Share API on mobile devices if supported
+    const isMobile = /mobile|android|iphone|ipad|ipod/i.test(navigator.userAgent.toLowerCase());
+    if (isMobile && navigator.share) {
+        try {
+            await navigator.share({
+                title: shareData.title,
+                text: shareData.text,
+                url: shareData.url
+            });
+            showToast('⚔️ Challenge Shared!');
+            return;
+        } catch (err) {
+            if (err.name === 'AbortError') return; // User closed share modal
+        }
+    }
+
+    // Desktop or clipboard copy
+    const copyText = shareData.text;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(copyText).then(() => {
+            showToast('⚔️ Challenge Copied to Clipboard!');
+        }).catch(() => {
+            fallbackClipboardCopy(copyText);
+        });
+    } else {
+        fallbackClipboardCopy(copyText);
+    }
+}
+
+// Fallback clipboard copy for non-HTTPS / older browsers
+function fallbackClipboardCopy(text) {
+    try {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.top = '0';
+        textarea.style.left = '0';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('⚔️ Challenge Copied to Clipboard!');
+    } catch (err) {
+        showToast('👉 Challenge link ready in address bar!');
+    }
+}
+
+// Browser navigation popstate handler
+window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.serial && easterEggs.length > 0) {
+        const card = easterEggs.find(c => c.Serial === e.state.serial);
+        if (card) {
+            currentCard = card;
+            flashcard.classList.remove('flipped');
+            flashcard.classList.remove(...ALL_POWER_CLASSES);
+            if (vfxOverlay) vfxOverlay.innerHTML = '';
+            populateCard(currentCard);
+            updateSlideshows(currentCard);
+        }
+    }
+});
+
 // Event Listeners
 newCardBtn.addEventListener('click', transitionToNextCard);
 
@@ -452,6 +612,9 @@ revealBtn.addEventListener('click', () => {
 showQBtn.addEventListener('click', () => {
     flashcard.classList.remove('flipped');
 });
+
+if (challengeBtnFront) challengeBtnFront.addEventListener('click', handleChallengeShare);
+if (challengeBtnBack) challengeBtnBack.addEventListener('click', handleChallengeShare);
 
 function updateSlideshows(card) {
     const leftContainer = document.getElementById('slideshow-left');

@@ -65,7 +65,12 @@
                         REMEMBER! ANSWER THIS AS IF YOU HAVE SEEN <span class="highlight" id="ctx-series"></span> TILL <a href="#" target="_blank" rel="noopener noreferrer" class="highlight" id="ctx-season-ep"></a> AND NO FURTHER!
                     </div>
                     <div class="question" id="card-question">Loading...</div>
-                    <button class="marvel-btn reveal-btn" id="reveal-btn">Reveal</button>
+                    <div class="card-action-row">
+                        <button class="marvel-btn reveal-btn" id="reveal-btn">Reveal</button>
+                        <button class="marvel-btn-secondary challenge-btn" id="challenge-btn-front" title="Challenge a Friend with this Easter Egg">
+                            <span class="btn-icon">⚔️</span> Challenge a Friend
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Back Side -->
@@ -77,11 +82,22 @@
                     <div class="caution hidden" id="card-caution">
                         CAUTION: A BIT SPECULATIVE!
                     </div>
-                    <button class="marvel-btn show-q-btn" id="show-q-btn">Show Question</button>
+                    <div class="card-action-row">
+                        <button class="marvel-btn show-q-btn" id="show-q-btn">Show Question</button>
+                        <button class="marvel-btn-secondary challenge-btn" id="challenge-btn-back" title="Challenge a Friend with this Easter Egg">
+                            <span class="btn-icon">⚔️</span> Challenge a Friend
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Marvel Toast Notification -->
+    <div id="marvel-toast" class="marvel-toast hidden" role="status" aria-live="polite">
+        <span class="toast-icon">⚔️</span>
+        <span class="toast-message">Challenge Copied to Clipboard!</span>
+    </div>
 
     <footer>
         <div class="developer-credit">

@@ -342,10 +342,110 @@ header {
     display: none !important;
 }
 
+/* Card Button & Action Row */
+.card-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    margin-top: auto;
+}
+
 .reveal-btn,
 .show-q-btn {
     align-self: center;
-    width: 200px;
+    width: 185px;
+    flex: 0 0 auto;
+}
+
+.marvel-btn-secondary {
+    background: rgba(18, 22, 32, 0.75);
+    color: #ffffff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    padding: 8px 18px;
+    border: 1.5px solid rgba(226, 54, 54, 0.6);
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(226, 54, 54, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s, background 0.2s, border-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    align-self: center;
+    width: 195px;
+    flex: 0 0 auto;
+}
+
+.marvel-btn-secondary:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: rgba(226, 54, 54, 0.25);
+    border-color: var(--mc-red);
+    box-shadow: 0 6px 20px rgba(226, 54, 54, 0.4), 0 0 15px rgba(226, 54, 54, 0.3);
+    color: #ffffff;
+}
+
+.marvel-btn-secondary:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-icon {
+    font-size: 1.05rem;
+    line-height: 1;
+}
+
+/* Marvel Toast Notification */
+.marvel-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    z-index: 10000;
+    background: linear-gradient(135deg, rgba(14, 17, 26, 0.95), rgba(28, 18, 24, 0.95));
+    border: 1.5px solid var(--mc-red);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(226, 54, 54, 0.4);
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    letter-spacing: 0.5px;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.marvel-toast.toast-show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    animation: toastIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.marvel-toast.toast-hide {
+    opacity: 0;
+    transform: translateX(-50%) translateY(15px);
+}
+
+@keyframes toastIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
 }
 
 footer {
@@ -962,11 +1062,20 @@ footer {
         margin-bottom: 8px;
     }
 
+    .card-action-row {
+        gap: 8px;
+        width: 100%;
+    }
+
     .reveal-btn,
-    .show-q-btn {
-        width: 180px;
-        padding: 10px 16px;
-        font-size: 1.1rem;
+    .show-q-btn,
+    .challenge-btn {
+        width: 48%;
+        min-width: 0;
+        padding: 9px 8px;
+        font-size: 1.02rem;
+        letter-spacing: 1px;
+        white-space: nowrap;
     }
 
     footer {
@@ -1066,11 +1175,30 @@ footer {
         margin-bottom: 6px;
     }
 
+    .card-action-row {
+        gap: 6px;
+        width: 100%;
+    }
+
     .reveal-btn,
-    .show-q-btn {
-        width: 165px;
-        padding: 8px 14px;
-        font-size: 1.05rem;
+    .show-q-btn,
+    .challenge-btn {
+        width: 48%;
+        min-width: 0;
+        padding: 8px 6px;
+        font-size: 0.92rem;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    .marvel-toast {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+        bottom: 16px;
+        width: 90%;
+        max-width: 320px;
+        justify-content: center;
+        text-align: center;
     }
 
     .developer-credit,
