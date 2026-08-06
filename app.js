@@ -617,39 +617,49 @@ showQBtn.addEventListener('click', () => {
 if (challengeBtnFront) challengeBtnFront.addEventListener('click', handleChallengeShare);
 if (challengeBtnBack) challengeBtnBack.addEventListener('click', handleChallengeShare);
 
-// Touch swipe to flip card (mobile/tablet)
+// Swipe to flip card (touch / pen / mouse-drag)
 (function initSwipeToFlip() {
     let startX = 0;
     let startY = 0;
-    let swiping = false;
+    let tracking = false;
     const SWIPE_THRESHOLD = 40;
-    const target = flashcardWrapper;
 
-    target.addEventListener('touchstart', function(e) {
-        const t = e.touches[0];
-        startX = t.clientX;
-        startY = t.clientY;
-        swiping = false;
-    }, { passive: true });
+    function isInsideCard(el) {
+        return flashcardWrapper.contains(el);
+    }
 
-    target.addEventListener('touchmove', function(e) {
-        if (swiping) { e.preventDefault(); return; }
-        const t = e.touches[0];
-        const dx = t.clientX - startX;
-        const dy = t.clientY - startY;
-        // Once we detect a clear horizontal swipe, lock it in and prevent scroll
-        if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy) * 1.5) {
-            swiping = true;
-            e.preventDefault();
+    document.addEventListener('pointerdown', function(e) {
+        if (!isInsideCard(e.target)) return;
+        // Ignore if they tapped a button
+        if (e.target.closest('button') || e.target.closest('a')) return;
+        startX = e.clientX;
+        startY = e.clientY;
+        tracking = true;
+    });
+
+    document.addEventListener('pointermove', function(e) {
+        if (!tracking) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        // If clearly vertical, stop tracking (let page scroll)
+        if (Math.abs(dy) > 20 && Math.abs(dy) > Math.abs(dx)) {
+            tracking = false;
         }
-    }, { passive: false });
+    });
 
-    target.addEventListener('touchend', function() {
-        if (swiping) {
+    document.addEventListener('pointerup', function(e) {
+        if (!tracking) return;
+        tracking = false;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
             flashcard.classList.toggle('flipped');
-            swiping = false;
         }
-    }, { passive: true });
+    });
+
+    document.addEventListener('pointercancel', function() {
+        tracking = false;
+    });
 })();
 
 function updateSlideshows(card) {

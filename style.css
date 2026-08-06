@@ -244,6 +244,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    touch-action: pan-y;
 
     /* Glassmorphism */
     background: rgba(255, 255, 255, 0.05);
