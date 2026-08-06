@@ -546,9 +546,7 @@ async function handleChallengeShare(e) {
     if (isMobile && navigator.share) {
         try {
             await navigator.share({
-                title: shareData.title,
-                text: shareData.text,
-                url: shareData.url
+                text: shareData.fullText
             });
             showToast('⚔️ Challenge Shared!');
             return;
