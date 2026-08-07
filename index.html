@@ -141,12 +141,67 @@
         </div>
     </footer>
 
+    <!-- PWA Install Banner -->
+    <div id="pwa-install-banner" class="pwa-install-banner hidden" role="alert">
+        <div class="pwa-banner-content">
+            <div class="pwa-banner-text">
+                <strong>📲 Install MCU Easter Eggs</strong>
+                <span>Works Offline! • Home Screen App</span>
+            </div>
+            <div class="pwa-banner-actions">
+                <button id="pwa-install-btn" class="pwa-install-btn">Install</button>
+                <button id="pwa-dismiss-btn" class="pwa-dismiss-btn" aria-label="Dismiss">✕</button>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js?v=9"></script>
     <script>
         // Register PWA Service Worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js').catch(() => {});
         }
+
+        // Custom PWA Install Prompt
+        (function() {
+            let deferredPrompt = null;
+            const banner = document.getElementById('pwa-install-banner');
+            const installBtn = document.getElementById('pwa-install-btn');
+            const dismissBtn = document.getElementById('pwa-dismiss-btn');
+
+            // Check if user previously dismissed
+            const dismissed = localStorage.getItem('pwa-install-dismissed');
+
+            window.addEventListener('beforeinstallprompt', function(e) {
+                e.preventDefault();
+                deferredPrompt = e;
+                // Show banner after a short delay if not dismissed
+                if (!dismissed) {
+                    setTimeout(function() {
+                        banner.classList.remove('hidden');
+                    }, 3000);
+                }
+            });
+
+            installBtn.addEventListener('click', function() {
+                if (!deferredPrompt) return;
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(function() {
+                    deferredPrompt = null;
+                    banner.classList.add('hidden');
+                });
+            });
+
+            dismissBtn.addEventListener('click', function() {
+                banner.classList.add('hidden');
+                localStorage.setItem('pwa-install-dismissed', '1');
+            });
+
+            window.addEventListener('appinstalled', function() {
+                banner.classList.add('hidden');
+                deferredPrompt = null;
+            });
+        })();
     </script>
 </body>
 </html>
