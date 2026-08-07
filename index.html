@@ -39,6 +39,9 @@
     <meta name="theme-color" content="#0a0a12">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="images/icon-192.png">
     <!-- Modern font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -139,5 +142,11 @@
     </footer>
 
     <script src="app.js?v=9"></script>
+    <script>
+        // Register PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(() => {});
+        }
+    </script>
 </body>
 </html>
