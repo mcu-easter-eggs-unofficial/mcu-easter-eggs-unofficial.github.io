@@ -46,7 +46,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css?v=8">
     <!-- PapaParse for CSV parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -63,7 +63,24 @@
     <div class="hex-overlay"></div>
 
     <header>
-        <button id="new-card-btn" class="marvel-btn">NEW FLASHCARD</button>
+        <div class="header-left">
+            <button id="new-card-btn" class="marvel-btn">NEW FLASHCARD</button>
+            <div class="radar-tracker" id="radar-tracker" title="Your MCU Easter Egg Discovery Record">
+                <div class="radar-header">
+                    <span class="radar-title">👁️ RADAR</span>
+                    <span class="radar-rank-badge" id="radar-rank">🍿 Casual Viewer</span>
+                </div>
+                <div class="radar-stats">
+                    <span class="stat-pill"><span class="stat-emoji">🥚</span> <strong id="radar-discovered-count">0</strong> Discovered</span>
+                    <span class="stat-dot">•</span>
+                    <span class="stat-pill"><span class="stat-emoji">🤯</span> <strong id="radar-mindblown-count">0</strong> Mind-Blown</span>
+                </div>
+                <div class="radar-progress-wrap">
+                    <div class="radar-progress-bar" id="radar-progress-bar" style="width: 0%;"></div>
+                </div>
+                <div class="radar-next-text" id="radar-next-text">Next rank in 5 eggs...</div>
+            </div>
+        </div>
         <img src="images/logo.png" alt="MCU Easter Eggs Logo" class="banner-logo">
     </header>
 
@@ -111,6 +128,9 @@
                     </div>
                     <div class="card-action-row">
                         <button class="marvel-btn show-q-btn" id="show-q-btn">Show Question</button>
+                        <button class="marvel-btn-secondary mind-blown-btn" id="mind-blown-btn" title="Mark as Mind-Blowing">
+                            <span class="btn-icon">🤯</span> Mind Blown!
+                        </button>
                         <button class="marvel-btn-secondary challenge-btn" id="challenge-btn-back" title="Challenge a Friend with this Easter Egg">
                             <span class="btn-icon">⚔️</span> Challenge a Friend
                         </button>
@@ -164,7 +184,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=11"></script>
+    <script src="app.js?v=12"></script>
     <script>
         // Register PWA Service Worker
         if ('serviceWorker' in navigator) {

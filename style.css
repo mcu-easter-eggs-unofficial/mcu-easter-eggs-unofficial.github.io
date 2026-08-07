@@ -1356,3 +1356,157 @@ footer {
         display: none !important;
     }
 }
+
+/* Header Left Container */
+.header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    z-index: 10;
+}
+
+/* Radar / Easter Egg Streak Tracker */
+.radar-tracker {
+    width: 250px;
+    background: rgba(15, 17, 21, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 54, 54, 0.3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.radar-tracker:hover {
+    border-color: rgba(226, 54, 54, 0.6);
+    transform: translateY(-1px);
+}
+
+.radar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.radar-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(226, 54, 54, 0.4);
+}
+
+.radar-rank-badge {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #F4B400;
+    background: rgba(244, 180, 0, 0.12);
+    border: 1px solid rgba(244, 180, 0, 0.35);
+    padding: 2px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+.radar-stats {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #cbd5e1;
+    font-family: 'Outfit', sans-serif;
+    margin-bottom: 7px;
+}
+
+.stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-pill strong {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.stat-dot {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.65rem;
+}
+
+.radar-progress-wrap {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.radar-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4285F4, #E23636, #F4B400);
+    transition: width 0.4s ease;
+    border-radius: 2px;
+    box-shadow: 0 0 8px rgba(226, 54, 54, 0.6);
+}
+
+.radar-next-text {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    font-family: 'Outfit', sans-serif;
+    text-align: right;
+}
+
+/* Mind Blown Reaction Button Active State */
+.mind-blown-btn {
+    transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.mind-blown-btn.active {
+    background: rgba(244, 180, 0, 0.2) !important;
+    border-color: #F4B400 !important;
+    color: #FFE082 !important;
+    box-shadow: 0 0 14px rgba(244, 180, 0, 0.4) !important;
+}
+
+/* Mobile & Tablet Adaptations for Radar */
+@media (max-width: 768px) {
+    .header-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .radar-tracker {
+        width: auto;
+        padding: 4px 8px;
+        border-radius: 14px;
+        box-shadow: none;
+    }
+
+    .radar-title,
+    .radar-progress-wrap,
+    .radar-next-text {
+        display: none;
+    }
+
+    .radar-header {
+        margin-bottom: 0;
+    }
+
+    .radar-rank-badge {
+        font-size: 0.72rem;
+        padding: 1px 6px;
+    }
+
+    .radar-stats {
+        margin-bottom: 0;
+        font-size: 0.72rem;
+        gap: 6px;
+    }
+}

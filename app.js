@@ -93,6 +93,7 @@ const vfxOverlay = document.getElementById('vfx-overlay');
 const newCardBtn = document.getElementById('new-card-btn');
 const revealBtn = document.getElementById('reveal-btn');
 const showQBtn = document.getElementById('show-q-btn');
+const mindBlownBtn = document.getElementById('mind-blown-btn');
 const challengeBtnFront = document.getElementById('challenge-btn-front');
 const challengeBtnBack = document.getElementById('challenge-btn-back');
 
@@ -371,6 +372,7 @@ Papa.parse('easter-eggs.csv', {
             } else {
                 loadRandomCard(true);
             }
+            updateRadarTracker();
             flashcardWrapper.classList.remove('hidden');
         }
     }
@@ -490,6 +492,122 @@ function populateCard(card) {
     } else {
         cautionEl.classList.add('hidden');
     }
+
+    // Record discovery & update Mind Blown button state
+    recordCardDiscovered(card);
+    updateMindBlownButton(card);
+}
+
+// ==========================================================================
+// Radar / Streak & Discovery Tracker
+// ==========================================================================
+const RADAR_RANKS = [
+    { min: 0, max: 4, name: '🍿 Casual Viewer', nextTarget: 5 },
+    { min: 5, max: 14, name: '🔍 Observant Fan', nextTarget: 15 },
+    { min: 15, max: 29, name: '⏳ TVA Archivist', nextTarget: 30 },
+    { min: 30, max: 49, name: '🔮 Master of Mystic Arts', nextTarget: 50 },
+    { min: 50, max: Infinity, name: '👁️ The Watcher', nextTarget: 50 }
+];
+
+function getDiscoveredSet() {
+    try {
+        const raw = localStorage.getItem('mcu_discovered_cards');
+        return new Set(raw ? JSON.parse(raw) : []);
+    } catch {
+        return new Set();
+    }
+}
+
+function getMindBlownSet() {
+    try {
+        const raw = localStorage.getItem('mcu_mind_blown_cards');
+        return new Set(raw ? JSON.parse(raw) : []);
+    } catch {
+        return new Set();
+    }
+}
+
+function saveDiscoveredSet(set) {
+    try {
+        localStorage.setItem('mcu_discovered_cards', JSON.stringify(Array.from(set)));
+    } catch {}
+}
+
+function saveMindBlownSet(set) {
+    try {
+        localStorage.setItem('mcu_mind_blown_cards', JSON.stringify(Array.from(set)));
+    } catch {}
+}
+
+function updateRadarTracker() {
+    const discoveredSet = getDiscoveredSet();
+    const mindBlownSet = getMindBlownSet();
+    const discoveredCount = discoveredSet.size;
+    const mindBlownCount = mindBlownSet.size;
+
+    const rank = RADAR_RANKS.find(r => discoveredCount >= r.min && discoveredCount <= r.max) || RADAR_RANKS[0];
+
+    const rankEl = document.getElementById('radar-rank');
+    const discoveredEl = document.getElementById('radar-discovered-count');
+    const mindBlownEl = document.getElementById('radar-mindblown-count');
+    const progressBar = document.getElementById('radar-progress-bar');
+    const nextTextEl = document.getElementById('radar-next-text');
+
+    if (rankEl) rankEl.textContent = rank.name;
+    if (discoveredEl) discoveredEl.textContent = discoveredCount;
+    if (mindBlownEl) mindBlownEl.textContent = mindBlownCount;
+
+    if (progressBar && nextTextEl) {
+        if (discoveredCount >= 50) {
+            progressBar.style.width = '100%';
+            nextTextEl.textContent = 'Omniscient • Max Rank Achieved!';
+        } else {
+            const rangeStart = rank.min;
+            const rangeEnd = rank.nextTarget;
+            const progress = Math.min(100, Math.max(0, Math.round(((discoveredCount - rangeStart) / (rangeEnd - rangeStart)) * 100)));
+            progressBar.style.width = progress + '%';
+            const remaining = rank.nextTarget - discoveredCount;
+            nextTextEl.textContent = `Next rank in ${remaining} card${remaining === 1 ? '' : 's'}...`;
+        }
+    }
+}
+
+function recordCardDiscovered(card) {
+    if (!card || !card.Serial) return;
+    const cardId = card.Serial.trim().toUpperCase();
+    const discoveredSet = getDiscoveredSet();
+    if (!discoveredSet.has(cardId)) {
+        discoveredSet.add(cardId);
+        saveDiscoveredSet(discoveredSet);
+    }
+    updateRadarTracker();
+}
+
+function updateMindBlownButton(card) {
+    if (!mindBlownBtn || !card || !card.Serial) return;
+    const mindBlownSet = getMindBlownSet();
+    const cardId = card.Serial.trim().toUpperCase();
+    if (mindBlownSet.has(cardId)) {
+        mindBlownBtn.classList.add('active');
+    } else {
+        mindBlownBtn.classList.remove('active');
+    }
+}
+
+function toggleMindBlown(card) {
+    if (!card || !card.Serial) return;
+    const mindBlownSet = getMindBlownSet();
+    const cardId = card.Serial.trim().toUpperCase();
+    if (mindBlownSet.has(cardId)) {
+        mindBlownSet.delete(cardId);
+        showToast('Removed from Mind-Blown list');
+    } else {
+        mindBlownSet.add(cardId);
+        showToast('🤯 Added to Mind-Blown list!');
+    }
+    saveMindBlownSet(mindBlownSet);
+    updateMindBlownButton(card);
+    updateRadarTracker();
 }
 
 // Toast Notification Manager
@@ -616,6 +734,7 @@ showQBtn.addEventListener('click', () => {
 
 if (challengeBtnFront) challengeBtnFront.addEventListener('click', handleChallengeShare);
 if (challengeBtnBack) challengeBtnBack.addEventListener('click', handleChallengeShare);
+if (mindBlownBtn) mindBlownBtn.addEventListener('click', () => toggleMindBlown(currentCard));
 
 // Keyboard Shortcuts:
 // - Space: Next Card
