@@ -1451,11 +1451,46 @@ footer {
     box-shadow: 0 0 8px rgba(226, 54, 54, 0.6);
 }
 
+.radar-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
 .radar-next-text {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     color: #94a3b8;
     font-family: 'Outfit', sans-serif;
-    text-align: right;
+}
+
+.radar-reset-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 4px;
+    color: #94a3b8;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 2px 7px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.radar-reset-btn:hover {
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.6);
+    background: rgba(239, 68, 68, 0.12);
+    transform: translateY(-0.5px);
+}
+
+.radar-reset-btn .reset-icon {
+    font-size: 0.75rem;
+    line-height: 1;
 }
 
 /* Mind Blown Reaction Badge (Answer Side Top-Right) */
@@ -1533,6 +1568,18 @@ footer {
         display: inline-flex;
     }
 
+    .radar-footer {
+        margin-top: 0;
+        display: inline-flex;
+    }
+
+    .radar-reset-btn {
+        margin-left: 2px;
+        padding: 2px 6px;
+        font-size: 0.65rem;
+        border-radius: 10px;
+    }
+
     .radar-rank-badge {
         font-size: 0.76rem;
         padding: 2px 8px;
@@ -1560,6 +1607,11 @@ footer {
     .radar-stats {
         font-size: 0.72rem;
         gap: 5px;
+    }
+
+    .radar-reset-btn {
+        padding: 1px 5px;
+        font-size: 0.62rem;
     }
 
     .mind-blown-badge {

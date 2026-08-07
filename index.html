@@ -46,7 +46,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=11">
+    <link rel="stylesheet" href="style.css?v=12">
     <!-- PapaParse for CSV parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -93,7 +93,12 @@
             <div class="radar-progress-wrap">
                 <div class="radar-progress-bar" id="radar-progress-bar" style="width: 0%;"></div>
             </div>
-            <div class="radar-next-text" id="radar-next-text">Next rank in 5 eggs...</div>
+            <div class="radar-footer">
+                <span class="radar-next-text" id="radar-next-text">Next rank in 5 eggs...</span>
+                <button class="radar-reset-btn" id="radar-reset-btn" title="Reset your progress counter">
+                    <span class="reset-icon">↺</span> Reset Progress
+                </button>
+            </div>
         </div>
 
         <div class="title-section">
@@ -185,7 +190,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=14"></script>
+    <script src="app.js?v=15"></script>
     <script>
         // Register PWA Service Worker
         if ('serviceWorker' in navigator) {

@@ -96,6 +96,7 @@ const showQBtn = document.getElementById('show-q-btn');
 const mindBlownBtn = document.getElementById('mind-blown-btn');
 const challengeBtnFront = document.getElementById('challenge-btn-front');
 const challengeBtnBack = document.getElementById('challenge-btn-back');
+const radarResetBtn = document.getElementById('radar-reset-btn');
 
 let isTransitioning = false;
 
@@ -610,6 +611,26 @@ function toggleMindBlown(card) {
     updateRadarTracker();
 }
 
+function resetProgress() {
+    if (confirm("Reset your Easter Egg discovery streak and start fresh?")) {
+        try {
+            localStorage.removeItem('mcu_discovered_cards');
+            localStorage.removeItem('mcu_mind_blown_cards');
+        } catch {}
+        
+        if (currentCard && currentCard.Serial) {
+            const cardId = currentCard.Serial.trim().toUpperCase();
+            saveDiscoveredSet(new Set([cardId]));
+        } else {
+            saveDiscoveredSet(new Set());
+        }
+        saveMindBlownSet(new Set());
+        updateRadarTracker();
+        if (currentCard) updateMindBlownButton(currentCard);
+        showToast('↺ Progress reset! Starting fresh.');
+    }
+}
+
 // Toast Notification Manager
 let toastTimeout = null;
 function showToast(message) {
@@ -735,6 +756,7 @@ showQBtn.addEventListener('click', () => {
 if (challengeBtnFront) challengeBtnFront.addEventListener('click', handleChallengeShare);
 if (challengeBtnBack) challengeBtnBack.addEventListener('click', handleChallengeShare);
 if (mindBlownBtn) mindBlownBtn.addEventListener('click', () => toggleMindBlown(currentCard));
+if (radarResetBtn) radarResetBtn.addEventListener('click', resetProgress);
 
 // Keyboard Shortcuts:
 // - Space: Next Card
