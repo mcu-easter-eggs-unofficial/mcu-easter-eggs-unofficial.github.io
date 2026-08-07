@@ -750,6 +750,70 @@ function launchRankUpConfetti() {
     confettiAnimationId = requestAnimationFrame(renderConfetti);
 }
 
+// Celebratory "Tan-Tan-Daaa!" Audio Fanfare (Smooth harmonic major chords)
+function playRankUpFanfare() {
+    try {
+        if (!audioCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) audioCtx = new AudioContext();
+        }
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        const now = audioCtx.currentTime;
+
+        // Warm master low-pass filter to ensure silky smooth, non-piercing high frequencies
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(2200, now);
+
+        const masterGain = audioCtx.createGain();
+        masterGain.gain.setValueAtTime(0.2, now);
+
+        filter.connect(masterGain);
+        masterGain.connect(audioCtx.destination);
+
+        const notes = [
+            // Beat 1: "Tan" (G4 + G5 octave chime)
+            { freq: 392.00, start: now + 0.02, dur: 0.13, vol: 0.28, type: 'triangle' },
+            { freq: 783.99, start: now + 0.02, dur: 0.13, vol: 0.12, type: 'sine' },
+
+            // Beat 2: "Tan" (B4 + B5 octave chime)
+            { freq: 493.88, start: now + 0.16, dur: 0.14, vol: 0.30, type: 'triangle' },
+            { freq: 987.77, start: now + 0.16, dur: 0.14, vol: 0.14, type: 'sine' },
+
+            // Beat 3: "Daaa!" (Major chord resolve: G5 root + D5 fifth + B5 third + sparkle D6 shimmer)
+            { freq: 587.33, start: now + 0.32, dur: 1.1, vol: 0.32, type: 'triangle' },
+            { freq: 783.99, start: now + 0.32, dur: 1.25, vol: 0.38, type: 'triangle' },
+            { freq: 987.77, start: now + 0.32, dur: 0.95, vol: 0.18, type: 'sine' },
+            { freq: 1174.66, start: now + 0.34, dur: 0.75, vol: 0.12, type: 'sine' }
+        ];
+
+        notes.forEach(n => {
+            const osc = audioCtx.createOscillator();
+            const noteGain = audioCtx.createGain();
+
+            osc.type = n.type;
+            osc.frequency.setValueAtTime(n.freq, n.start);
+
+            // Envelope: Gentle 12ms attack to prevent clicking, sustain, smooth decay
+            noteGain.gain.setValueAtTime(0.0001, n.start);
+            noteGain.gain.exponentialRampToValueAtTime(n.vol, n.start + 0.015);
+            noteGain.gain.exponentialRampToValueAtTime(0.0001, n.start + n.dur);
+
+            osc.connect(noteGain);
+            noteGain.connect(filter);
+
+            osc.start(n.start);
+            osc.stop(n.start + n.dur + 0.05);
+        });
+    } catch {
+        // Fail-safe if Web Audio is restricted
+    }
+}
+
 let rankupBannerTimeout = null;
 function triggerRankUpCelebration(rank) {
     if (!rank) return;
@@ -778,6 +842,7 @@ function triggerRankUpCelebration(rank) {
     }
 
     launchRankUpConfetti();
+    playRankUpFanfare();
 }
 
 function dismissRankUpBanner() {
