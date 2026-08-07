@@ -617,6 +617,29 @@ showQBtn.addEventListener('click', () => {
 if (challengeBtnFront) challengeBtnFront.addEventListener('click', handleChallengeShare);
 if (challengeBtnBack) challengeBtnBack.addEventListener('click', handleChallengeShare);
 
+// Keyboard Shortcuts (Space: New Card, Left/Right Arrows: Flip Card)
+document.addEventListener('keydown', (e) => {
+    // Ignore if focus is in an input, textarea, or dialog
+    const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+    if (tag === 'input' || tag === 'textarea' || document.activeElement.isContentEditable) {
+        return;
+    }
+
+    if (e.code === 'Space') {
+        e.preventDefault();
+        transitionToNextCard();
+    } else if (e.code === 'ArrowRight' || e.code === 'ArrowDown') {
+        e.preventDefault();
+        flashcard.classList.toggle('flipped');
+    } else if (e.code === 'ArrowLeft' || e.code === 'ArrowUp') {
+        e.preventDefault();
+        flashcard.classList.toggle('flipped');
+    } else if (e.code === 'KeyF') {
+        e.preventDefault();
+        flashcard.classList.toggle('flipped');
+    }
+});
+
 
 function updateSlideshows(card) {
     const leftContainer = document.getElementById('slideshow-left');

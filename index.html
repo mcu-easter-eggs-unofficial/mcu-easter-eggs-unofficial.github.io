@@ -46,7 +46,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css?v=7">
     <!-- PapaParse for CSV parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -118,6 +118,13 @@
                 </div>
             </div>
         </div>
+
+        <!-- Desktop Keyboard Shortcuts Legend -->
+        <div class="shortcuts-legend" id="shortcuts-legend" aria-label="Keyboard Shortcuts">
+            <span class="legend-item"><kbd class="key-badge">Space</kbd> New Card</span>
+            <span class="legend-dot">•</span>
+            <span class="legend-item"><kbd class="key-badge">←</kbd> <kbd class="key-badge">→</kbd> Flip Card</span>
+        </div>
     </main>
 
     <!-- Marvel Toast Notification -->
@@ -155,7 +162,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=9"></script>
+    <script src="app.js?v=10"></script>
     <script>
         // Register PWA Service Worker
         if ('serviceWorker' in navigator) {
