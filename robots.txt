@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mcu-easter-eggs-unofficial.github.io/sitemap.xml
