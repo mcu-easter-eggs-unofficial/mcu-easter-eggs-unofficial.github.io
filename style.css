@@ -1626,3 +1626,190 @@ footer {
         font-size: 1rem;
     }
 }
+
+/* ==========================================================================
+   Rank Promotion Celebration HUD Banner & Confetti Canvas
+   ========================================================================== */
+.rankup-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+.rankup-banner {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    z-index: 9999;
+    max-width: 540px;
+    width: calc(100% - 32px);
+    background: linear-gradient(135deg, rgba(20, 24, 36, 0.95), rgba(10, 12, 18, 0.96));
+    border: 1.5px solid rgba(244, 180, 0, 0.65);
+    border-radius: 16px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), 0 0 30px rgba(244, 180, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    animation: rankupSlideDown 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+    box-sizing: border-box;
+}
+
+.rankup-banner:hover {
+    transform: translateX(-50%) translateY(-2px) scale(1.01);
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.85), 0 0 40px rgba(244, 180, 0, 0.5);
+}
+
+.rankup-banner.rankup-hide {
+    animation: rankupSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes rankupSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-70px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
+
+@keyframes rankupSlideUp {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-70px) scale(0.92);
+    }
+}
+
+.rankup-glow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(90deg, #E23636, #F4B400, #4285F4, #00f0ff, #a855f7, #E23636);
+    background-size: 300% 300%;
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0.7;
+    filter: blur(8px);
+    animation: cosmicBorderShift 4s ease infinite;
+}
+
+@keyframes cosmicBorderShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.rankup-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.rankup-badge-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 2px;
+    color: #F4B400;
+    text-shadow: 0 0 10px rgba(244, 180, 0, 0.6);
+}
+
+.rankup-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+}
+
+.rankup-quote {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    line-height: 1.35;
+    font-style: italic;
+}
+
+.rankup-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #94a3b8;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.rankup-close:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: #ef4444;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+/* Radar pulse animation when level-up triggers */
+.radar-rankup-pulse {
+    animation: radarPulse 1.2s ease-in-out 3;
+}
+
+@keyframes radarPulse {
+    0% {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 0 0 rgba(244, 180, 0, 0.8);
+        border-color: rgba(244, 180, 0, 1);
+    }
+    50% {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 25px 6px rgba(244, 180, 0, 0.6);
+        border-color: rgba(244, 180, 0, 1);
+    }
+    100% {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 0 0 rgba(244, 180, 0, 0);
+        border-color: rgba(226, 54, 54, 0.35);
+    }
+}
+
+@media (max-width: 600px) {
+    .rankup-banner {
+        top: 14px;
+        padding: 12px 14px;
+        border-radius: 12px;
+    }
+
+    .rankup-badge-tag {
+        font-size: 0.78rem;
+        letter-spacing: 1.5px;
+    }
+
+    .rankup-title {
+        font-size: 1.12rem;
+    }
+
+    .rankup-quote {
+        font-size: 0.78rem;
+    }
+}

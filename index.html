@@ -46,7 +46,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style.css?v=13">
     <!-- PapaParse for CSV parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -190,7 +190,21 @@
         </div>
     </div>
 
-    <script src="app.js?v=15"></script>
+    <!-- Rank Promotion Celebration Banner (Non-intrusive Top HUD) -->
+    <div id="rankup-banner" class="rankup-banner hidden" role="status" aria-live="polite" title="Click to dismiss">
+        <div class="rankup-glow"></div>
+        <div class="rankup-content">
+            <div class="rankup-badge-tag">⚡ MCU RADAR PROMOTION UNLOCKED ⚡</div>
+            <div class="rankup-title" id="rankup-title">🔍 Observant Fan</div>
+            <div class="rankup-quote" id="rankup-quote">You're noticing details the average viewer completely missed!</div>
+        </div>
+        <button class="rankup-close" id="rankup-close-btn" aria-label="Dismiss">✕</button>
+    </div>
+
+    <!-- Fullscreen Confetti Particle Canvas -->
+    <canvas id="rankup-canvas" class="rankup-canvas"></canvas>
+
+    <script src="app.js?v=16"></script>
     <script>
         // Register PWA Service Worker
         if ('serviceWorker' in navigator) {

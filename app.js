@@ -503,12 +503,26 @@ function populateCard(card) {
 // Radar / Streak & Discovery Tracker
 // ==========================================================================
 const RADAR_RANKS = [
-    { min: 0, max: 4, name: '🍿 Casual Viewer', nextTarget: 5 },
-    { min: 5, max: 14, name: '🔍 Observant Fan', nextTarget: 15 },
-    { min: 15, max: 29, name: '⏳ TVA Archivist', nextTarget: 30 },
-    { min: 30, max: 49, name: '🔮 Master of Mystic Arts', nextTarget: 50 },
-    { min: 50, max: Infinity, name: '👁️ The Watcher', nextTarget: 50 }
+    { min: 0, max: 4, name: '🍿 Casual Viewer', nextTarget: 5, quote: 'Your journey into the MCU multiverse begins!' },
+    { min: 5, max: 14, name: '🔍 Observant Fan', nextTarget: 15, quote: "You're noticing details the average viewer completely missed!" },
+    { min: 15, max: 29, name: '⏳ TVA Archivist', nextTarget: 30, quote: 'For all time. Always. You have unlocked TVA-level MCU knowledge!' },
+    { min: 30, max: 49, name: '🔮 Master of Mystic Arts', nextTarget: 50, quote: 'You perceive deep comic connections across the multiverse!' },
+    { min: 50, max: Infinity, name: '👁️ The Watcher', nextTarget: 50, quote: 'I observe all that transpires. True MCU omniscience achieved!' }
 ];
+
+function getLastCelebratedRank() {
+    try {
+        return localStorage.getItem('mcu_last_celebrated_rank') || '🍿 Casual Viewer';
+    } catch {
+        return '🍿 Casual Viewer';
+    }
+}
+
+function setLastCelebratedRank(rankName) {
+    try {
+        localStorage.setItem('mcu_last_celebrated_rank', rankName);
+    } catch {}
+}
 
 function getDiscoveredSet() {
     try {
@@ -577,11 +591,24 @@ function recordCardDiscovered(card) {
     if (!card || !card.Serial) return;
     const cardId = card.Serial.trim().toUpperCase();
     const discoveredSet = getDiscoveredSet();
-    if (!discoveredSet.has(cardId)) {
+    const isNew = !discoveredSet.has(cardId);
+    if (isNew) {
         discoveredSet.add(cardId);
         saveDiscoveredSet(discoveredSet);
     }
     updateRadarTracker();
+
+    if (isNew) {
+        const count = discoveredSet.size;
+        const currentRank = RADAR_RANKS.find(r => count >= r.min && count <= r.max) || RADAR_RANKS[0];
+        const lastRank = getLastCelebratedRank();
+
+        // Trigger celebration only if new tier reached (> Casual Viewer) and not yet celebrated
+        if (currentRank.name !== lastRank && currentRank.min > 0) {
+            setLastCelebratedRank(currentRank.name);
+            triggerRankUpCelebration(currentRank);
+        }
+    }
 }
 
 function updateMindBlownButton(card) {
@@ -616,6 +643,7 @@ function resetProgress() {
         try {
             localStorage.removeItem('mcu_discovered_cards');
             localStorage.removeItem('mcu_mind_blown_cards');
+            localStorage.removeItem('mcu_last_celebrated_rank');
         } catch {}
         
         if (currentCard && currentCard.Serial) {
@@ -629,6 +657,137 @@ function resetProgress() {
         if (currentCard) updateMindBlownButton(currentCard);
         showToast('↺ Progress reset! Starting fresh.');
     }
+}
+
+// Rank-Up Celebration Confetti & HUD Banner
+let confettiAnimationId = null;
+function launchRankUpConfetti() {
+    const canvas = document.getElementById('rankup-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const colors = [
+        '#ef4444', '#f87171', // Reality Red
+        '#38bdf8', '#0ea5e9', // Space Blue
+        '#fbbf24', '#f59e0b', // Mind Yellow
+        '#a855f7', '#c084fc', // Power Purple
+        '#10b981', '#34d399', // Time Green
+        '#f97316', '#fb923c', // Soul Orange
+        '#ffffff', '#fef08a'  // Cosmic Gold
+    ];
+
+    const particleCount = 75;
+    const particles = [];
+
+    for (let i = 0; i < particleCount; i++) {
+        particles.push({
+            x: window.innerWidth / 2 + (Math.random() - 0.5) * (window.innerWidth * 0.6),
+            y: -10 + Math.random() * 20,
+            w: 8 + Math.random() * 8,
+            h: 5 + Math.random() * 6,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            vx: (Math.random() - 0.5) * 8,
+            vy: 4 + Math.random() * 7,
+            rot: Math.random() * 360,
+            vRot: (Math.random() - 0.5) * 12,
+            opacity: 1,
+            shape: Math.random() > 0.3 ? 'rect' : 'circle'
+        });
+    }
+
+    if (confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
+    const startTime = Date.now();
+
+    function renderConfetti() {
+        const elapsed = Date.now() - startTime;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        let activeCount = 0;
+        for (let p of particles) {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.12;
+            p.vx *= 0.99;
+            p.rot += p.vRot;
+
+            if (elapsed > 2500) {
+                p.opacity = Math.max(0, 1 - (elapsed - 2500) / 1000);
+            }
+
+            if (p.y < canvas.height + 20 && p.opacity > 0) {
+                activeCount++;
+                ctx.save();
+                ctx.globalAlpha = p.opacity;
+                ctx.translate(p.x, p.y);
+                ctx.rotate((p.rot * Math.PI) / 180);
+                ctx.fillStyle = p.color;
+                ctx.shadowColor = p.color;
+                ctx.shadowBlur = 6;
+
+                if (p.shape === 'rect') {
+                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, p.w / 2.5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        if (activeCount > 0 && elapsed < 3800) {
+            confettiAnimationId = requestAnimationFrame(renderConfetti);
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettiAnimationId = null;
+        }
+    }
+
+    confettiAnimationId = requestAnimationFrame(renderConfetti);
+}
+
+let rankupBannerTimeout = null;
+function triggerRankUpCelebration(rank) {
+    if (!rank) return;
+    const banner = document.getElementById('rankup-banner');
+    const titleEl = document.getElementById('rankup-title');
+    const quoteEl = document.getElementById('rankup-quote');
+    const radar = document.getElementById('radar-tracker');
+
+    if (titleEl) titleEl.textContent = rank.name;
+    if (quoteEl) quoteEl.textContent = rank.quote || 'You leveled up your Easter Egg discovery rank!';
+
+    if (radar) {
+        radar.classList.remove('radar-rankup-pulse');
+        void radar.offsetWidth;
+        radar.classList.add('radar-rankup-pulse');
+    }
+
+    if (banner) {
+        banner.classList.remove('hidden');
+        banner.classList.remove('rankup-hide');
+        
+        clearTimeout(rankupBannerTimeout);
+        rankupBannerTimeout = setTimeout(() => {
+            dismissRankUpBanner();
+        }, 5000);
+    }
+
+    launchRankUpConfetti();
+}
+
+function dismissRankUpBanner() {
+    const banner = document.getElementById('rankup-banner');
+    if (!banner || banner.classList.contains('hidden')) return;
+    banner.classList.add('rankup-hide');
+    setTimeout(() => {
+        banner.classList.add('hidden');
+        banner.classList.remove('rankup-hide');
+    }, 400);
 }
 
 // Toast Notification Manager
@@ -757,6 +916,14 @@ if (challengeBtnFront) challengeBtnFront.addEventListener('click', handleChallen
 if (challengeBtnBack) challengeBtnBack.addEventListener('click', handleChallengeShare);
 if (mindBlownBtn) mindBlownBtn.addEventListener('click', () => toggleMindBlown(currentCard));
 if (radarResetBtn) radarResetBtn.addEventListener('click', resetProgress);
+
+const rankupBanner = document.getElementById('rankup-banner');
+const rankupCloseBtn = document.getElementById('rankup-close-btn');
+if (rankupCloseBtn) rankupCloseBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dismissRankUpBanner();
+});
+if (rankupBanner) rankupBanner.addEventListener('click', dismissRankUpBanner);
 
 // Keyboard Shortcuts:
 // - Space: Next Card
