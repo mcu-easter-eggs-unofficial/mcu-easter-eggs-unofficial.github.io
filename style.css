@@ -151,6 +151,7 @@ header {
 }
 
 .container {
+    position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -986,8 +987,7 @@ footer {
 
 @media (max-width: 768px) {
     header {
-        padding: 8px 14px;
-        gap: 8px;
+        padding: 10px 14px;
     }
 
     .banner-logo {
@@ -1357,27 +1357,22 @@ footer {
     }
 }
 
-/* Header Left Container */
-.header-left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    z-index: 10;
-}
-
-/* Radar / Easter Egg Streak Tracker */
+/* Radar / Easter Egg Streak Tracker (Desktop: Absolute top-left beside title) */
 .radar-tracker {
-    width: 250px;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    width: 230px;
     background: rgba(15, 17, 21, 0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(226, 54, 54, 0.3);
     border-radius: 8px;
-    padding: 10px 14px;
+    padding: 8px 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     transition: transform 0.2s ease, border-color 0.2s ease;
     box-sizing: border-box;
+    z-index: 10;
 }
 
 .radar-tracker:hover {
@@ -1389,12 +1384,12 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 
 .radar-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     letter-spacing: 1.5px;
     color: #ffffff;
     text-shadow: 0 0 8px rgba(226, 54, 54, 0.4);
@@ -1402,12 +1397,12 @@ footer {
 
 .radar-rank-badge {
     font-family: 'Outfit', sans-serif;
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     font-weight: 600;
     color: #F4B400;
     background: rgba(244, 180, 0, 0.12);
     border: 1px solid rgba(244, 180, 0, 0.35);
-    padding: 2px 8px;
+    padding: 2px 7px;
     border-radius: 12px;
     white-space: nowrap;
 }
@@ -1416,10 +1411,10 @@ footer {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: #cbd5e1;
     font-family: 'Outfit', sans-serif;
-    margin-bottom: 7px;
+    margin-bottom: 6px;
 }
 
 .stat-pill {
@@ -1456,35 +1451,64 @@ footer {
 }
 
 .radar-next-text {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: #94a3b8;
     font-family: 'Outfit', sans-serif;
     text-align: right;
 }
 
-/* Mind Blown Reaction Button Active State */
-.mind-blown-btn {
-    transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+/* Mind Blown Reaction Badge (Answer Side Top-Right) */
+.mind-blown-badge {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(18, 22, 32, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.mind-blown-btn.active {
-    background: rgba(244, 180, 0, 0.2) !important;
+.mind-blown-badge:hover {
+    transform: translateY(-1px) scale(1.03);
+    border-color: rgba(244, 180, 0, 0.5);
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), 0 0 10px rgba(244, 180, 0, 0.2);
+}
+
+.mind-blown-badge.active {
+    background: rgba(244, 180, 0, 0.22) !important;
     border-color: #F4B400 !important;
     color: #FFE082 !important;
-    box-shadow: 0 0 14px rgba(244, 180, 0, 0.4) !important;
+    box-shadow: 0 0 14px rgba(244, 180, 0, 0.45) !important;
+    transform: scale(1.02);
 }
 
-/* Mobile & Tablet Adaptations for Radar */
-@media (max-width: 768px) {
-    .header-left {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-    }
+.mind-blown-badge .btn-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+}
 
+/* Mobile & Tablet Adaptations for Radar & Mind Blown */
+@media (max-width: 768px) {
     .radar-tracker {
+        position: static;
         width: auto;
-        padding: 4px 8px;
+        margin: 0 auto 8px auto;
+        padding: 3px 10px;
         border-radius: 14px;
         box-shadow: none;
     }
@@ -1497,6 +1521,7 @@ footer {
 
     .radar-header {
         margin-bottom: 0;
+        display: inline-flex;
     }
 
     .radar-rank-badge {
@@ -1508,5 +1533,12 @@ footer {
         margin-bottom: 0;
         font-size: 0.72rem;
         gap: 6px;
+    }
+
+    .mind-blown-badge {
+        top: 12px;
+        right: 14px;
+        padding: 3px 8px;
+        font-size: 0.72rem;
     }
 }
