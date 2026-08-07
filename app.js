@@ -617,7 +617,11 @@ showQBtn.addEventListener('click', () => {
 if (challengeBtnFront) challengeBtnFront.addEventListener('click', handleChallengeShare);
 if (challengeBtnBack) challengeBtnBack.addEventListener('click', handleChallengeShare);
 
-// Keyboard Shortcuts (Space: New Card, Left/Right Arrows: Flip Card)
+// Keyboard Shortcuts:
+// - Space: Next Card
+// - Right Arrow (→): Reveal Answer (when on front)
+// - Left Arrow (←): Show Question (when on back)
+// - Up/Down Arrows: Default page scrolling
 document.addEventListener('keydown', (e) => {
     // Ignore if focus is in an input, textarea, or dialog
     const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
@@ -628,15 +632,18 @@ document.addEventListener('keydown', (e) => {
     if (e.code === 'Space') {
         e.preventDefault();
         transitionToNextCard();
-    } else if (e.code === 'ArrowRight' || e.code === 'ArrowDown') {
-        e.preventDefault();
-        flashcard.classList.toggle('flipped');
-    } else if (e.code === 'ArrowLeft' || e.code === 'ArrowUp') {
-        e.preventDefault();
-        flashcard.classList.toggle('flipped');
-    } else if (e.code === 'KeyF') {
-        e.preventDefault();
-        flashcard.classList.toggle('flipped');
+    } else if (e.code === 'ArrowRight') {
+        // Only flip if currently on the Question side
+        if (!flashcard.classList.contains('flipped')) {
+            e.preventDefault();
+            flashcard.classList.add('flipped');
+        }
+    } else if (e.code === 'ArrowLeft') {
+        // Only flip back if currently on the Answer side
+        if (flashcard.classList.contains('flipped')) {
+            e.preventDefault();
+            flashcard.classList.remove('flipped');
+        }
     }
 });
 
