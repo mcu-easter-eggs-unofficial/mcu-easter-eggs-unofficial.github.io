@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V2HP88TBY"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-      gtag('config', 'G-5V2HP88TBY');
+        gtag('config', 'G-5V2HP88TBY');
     </script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4837101850987814"
+        crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCU Easter Eggs — Hidden Marvel Trivia Flashcards</title>
-    <meta name="description" content="Test your Marvel knowledge with hidden MCU Easter Eggs. Interactive trivia flashcards from movies and Disney+ shows.">
-    <meta name="keywords" content="MCU, Marvel, Easter Eggs, trivia, flashcards, Avengers, Disney+, WandaVision, Loki, hidden details, Marvel quiz">
+    <meta name="description"
+        content="Test your Marvel knowledge with hidden MCU Easter Eggs. Interactive trivia flashcards from movies and Disney+ shows.">
+    <meta name="keywords"
+        content="MCU, Marvel, Easter Eggs, trivia, flashcards, Avengers, Disney+, WandaVision, Loki, hidden details, Marvel quiz">
     <meta name="author" content="abhi1nandy2">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://mcu-easter-eggs-unofficial.github.io/">
@@ -23,7 +29,8 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mcu-easter-eggs-unofficial.github.io/">
     <meta property="og:title" content="MCU Easter Eggs — Hidden Marvel Trivia Flashcards">
-    <meta property="og:description" content="Think you caught every MCU Easter Egg? Test your knowledge with interactive trivia flashcards.">
+    <meta property="og:description"
+        content="Think you caught every MCU Easter Egg? Test your knowledge with interactive trivia flashcards.">
     <meta property="og:image" content="https://mcu-easter-eggs-unofficial.github.io/images/og-card.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -32,7 +39,8 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="MCU Easter Eggs — Hidden Marvel Trivia Flashcards">
-    <meta name="twitter:description" content="Think you caught every MCU Easter Egg? Test your knowledge with interactive trivia flashcards.">
+    <meta name="twitter:description"
+        content="Think you caught every MCU Easter Egg? Test your knowledge with interactive trivia flashcards.">
     <meta name="twitter:image" content="https://mcu-easter-eggs-unofficial.github.io/images/og-card.jpg">
 
     <!-- Theme Color (mobile browser address bar) -->
@@ -45,11 +53,13 @@
     <!-- Modern font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Bebas+Neue&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=14">
     <!-- PapaParse for CSV parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
+
 <body>
 
     <!-- Dynamic Infinity Stone Background Particles -->
@@ -86,9 +96,11 @@
                 <span class="radar-rank-badge" id="radar-rank">🍿 Casual Viewer</span>
             </div>
             <div class="radar-stats">
-                <span class="stat-pill"><span class="stat-emoji">🥚</span> <strong id="radar-discovered-count">0</strong> Discovered</span>
+                <span class="stat-pill"><span class="stat-emoji">🥚</span> <strong
+                        id="radar-discovered-count">0</strong> Discovered</span>
                 <span class="stat-dot">•</span>
-                <span class="stat-pill"><span class="stat-emoji">🤯</span> <strong id="radar-mindblown-count">0</strong> Mind-Blown</span>
+                <span class="stat-pill"><span class="stat-emoji">🤯</span> <strong id="radar-mindblown-count">0</strong>
+                    Mind-Blown</span>
             </div>
             <div class="radar-progress-wrap">
                 <div class="radar-progress-bar" id="radar-progress-bar" style="width: 0%;"></div>
@@ -103,7 +115,8 @@
 
         <div class="title-section">
             <h1 class="zinger">"I understood that reference!"</h1>
-            <p class="subtitle">These flashcards contain the most hidden, interesting easter eggs (not cringe, one that will appeal to MCU fans)</p>
+            <p class="subtitle">These flashcards contain the most hidden, interesting easter eggs (not cringe, one that
+                will appeal to MCU fans)</p>
         </div>
 
         <div class="flashcard-wrapper hidden" id="flashcard-wrapper">
@@ -112,17 +125,20 @@
                 <!-- Front Side -->
                 <div class="flashcard-face flashcard-front">
                     <div class="context" id="card-context">
-                        REMEMBER! ANSWER THIS AS IF YOU HAVE SEEN <span class="highlight" id="ctx-series"></span> TILL <a href="#" target="_blank" rel="noopener noreferrer" class="highlight" id="ctx-season-ep"></a> AND NO FURTHER!
+                        REMEMBER! ANSWER THIS AS IF YOU HAVE SEEN <span class="highlight" id="ctx-series"></span> TILL
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="highlight" id="ctx-season-ep"></a>
+                        AND NO FURTHER!
                     </div>
                     <div class="question" id="card-question">Loading...</div>
                     <div class="card-action-row">
                         <button class="marvel-btn reveal-btn" id="reveal-btn">Reveal</button>
-                        <button class="marvel-btn-secondary challenge-btn" id="challenge-btn-front" title="Challenge a Friend with this Easter Egg">
+                        <button class="marvel-btn-secondary challenge-btn" id="challenge-btn-front"
+                            title="Challenge a Friend with this Easter Egg">
                             <span class="btn-icon">⚔️</span> Challenge a Friend
                         </button>
                     </div>
                 </div>
-                
+
                 <!-- Back Side -->
                 <div class="flashcard-face flashcard-back">
                     <button class="mind-blown-badge" id="mind-blown-btn" title="Did this easter egg blow your mind?">
@@ -137,7 +153,8 @@
                     </div>
                     <div class="card-action-row">
                         <button class="marvel-btn show-q-btn" id="show-q-btn">Show Question</button>
-                        <button class="marvel-btn-secondary challenge-btn" id="challenge-btn-back" title="Challenge a Friend with this Easter Egg">
+                        <button class="marvel-btn-secondary challenge-btn" id="challenge-btn-back"
+                            title="Challenge a Friend with this Easter Egg">
                             <span class="btn-icon">⚔️</span> Challenge a Friend
                         </button>
                     </div>
@@ -150,12 +167,9 @@
             <span class="ad-label">ADVERTISEMENT</span>
             <div class="ad-slot-wrapper">
                 <!-- Google AdSense Tag -->
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:250px;min-height:50px"
-                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                     data-ad-slot="XXXXXXXXXX"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
+                <ins class="adsbygoogle" style="display:inline-block;width:250px;min-height:50px"
+                    data-ad-client="ca-pub-4837101850987814" data-ad-slot="XXXXXXXXXX" data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
                 <!-- Lightweight Preview Placeholder (Active when AdSense is pending/unfilled) -->
                 <div class="ad-preview-placeholder">
                     <span class="ad-preview-icon">⚡</span>
@@ -182,7 +196,8 @@
 
     <footer>
         <div class="developer-credit">
-            Created with 3000❤️ by <a href="https://github.com/abhi1nandy2" target="_blank" rel="noopener noreferrer">abhi1nandy2</a>
+            Created with 3000❤️ by <a href="https://github.com/abhi1nandy2" target="_blank"
+                rel="noopener noreferrer">abhi1nandy2</a>
         </div>
         <div class="credit-banner">
             <p>Source Material & Deep Dives provided by</p>
@@ -215,7 +230,8 @@
         <div class="rankup-content">
             <div class="rankup-badge-tag">⚡ MCU RADAR PROMOTION UNLOCKED ⚡</div>
             <div class="rankup-title" id="rankup-title">🔍 Observant Fan</div>
-            <div class="rankup-quote" id="rankup-quote">You're noticing details the average viewer completely missed!</div>
+            <div class="rankup-quote" id="rankup-quote">You're noticing details the average viewer completely missed!
+            </div>
         </div>
         <button class="rankup-close" id="rankup-close-btn" aria-label="Dismiss">✕</button>
     </div>
@@ -227,11 +243,11 @@
     <script>
         // Register PWA Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(() => {});
+            navigator.serviceWorker.register('/sw.js').catch(() => { });
         }
 
         // Custom PWA Install Prompt
-        (function() {
+        (function () {
             let deferredPrompt = null;
             const banner = document.getElementById('pwa-install-banner');
             const installBtn = document.getElementById('pwa-install-btn');
@@ -240,36 +256,37 @@
             // Check if user previously dismissed
             const dismissed = localStorage.getItem('pwa-install-dismissed');
 
-            window.addEventListener('beforeinstallprompt', function(e) {
+            window.addEventListener('beforeinstallprompt', function (e) {
                 e.preventDefault();
                 deferredPrompt = e;
                 // Show banner after a short delay if not dismissed
                 if (!dismissed) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         banner.classList.remove('hidden');
                     }, 3000);
                 }
             });
 
-            installBtn.addEventListener('click', function() {
+            installBtn.addEventListener('click', function () {
                 if (!deferredPrompt) return;
                 deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(function() {
+                deferredPrompt.userChoice.then(function () {
                     deferredPrompt = null;
                     banner.classList.add('hidden');
                 });
             });
 
-            dismissBtn.addEventListener('click', function() {
+            dismissBtn.addEventListener('click', function () {
                 banner.classList.add('hidden');
                 localStorage.setItem('pwa-install-dismissed', '1');
             });
 
-            window.addEventListener('appinstalled', function() {
+            window.addEventListener('appinstalled', function () {
                 banner.classList.add('hidden');
                 deferredPrompt = null;
             });
         })();
     </script>
 </body>
+
 </html>
