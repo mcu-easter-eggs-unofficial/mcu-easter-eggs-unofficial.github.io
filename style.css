@@ -1813,3 +1813,97 @@ footer {
         font-size: 0.78rem;
     }
 }
+
+/* ==========================================================================
+   Google AdSense Single Ad Slot
+   Desktop: Fixed Top-Right (level with Title & symmetrical to Radar)
+   Mobile/Tablet: Centered Below Flashcard
+   ========================================================================== */
+.mcu-ad-container {
+    position: fixed;
+    top: 96px;
+    right: 24px;
+    width: 275px;
+    background: rgba(15, 17, 21, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px dashed rgba(255, 255, 255, 0.22);
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    box-sizing: border-box;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.mcu-ad-container:hover {
+    border-color: rgba(244, 180, 0, 0.45);
+    transform: translateY(-1px);
+}
+
+.ad-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    user-select: none;
+}
+
+.ad-slot-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.ad-slot-wrapper ins.adsbygoogle {
+    display: block !important;
+    width: 100%;
+}
+
+.ad-preview-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #94a3b8;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.74rem;
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ad-preview-icon {
+    font-size: 0.85rem;
+    color: #F4B400;
+}
+
+/* Tablet & Mobile Adaptations (<= 1050px): Place neatly below flashcard */
+@media (max-width: 1050px) {
+    .mcu-ad-container {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 16px auto 10px auto;
+        width: 100%;
+        max-width: 330px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        z-index: 5;
+    }
+}
