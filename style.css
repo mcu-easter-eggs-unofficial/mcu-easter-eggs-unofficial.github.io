@@ -48,8 +48,8 @@ body {
 
 .stone-mind {
     background: var(--stone-mind);
-    top: 20%;
-    right: 20%;
+    top: 4%;
+    right: 8%;
     box-shadow: 0 0 25px 4px var(--stone-mind);
     animation-delay: -3s;
 }
@@ -1906,6 +1906,11 @@ footer {
 
 /* Tablet & Mobile Adaptations (<= 1050px): Place neatly below flashcard */
 @media (max-width: 1050px) {
+    .stone-mind {
+        top: 20%;
+        right: 20%;
+    }
+
     .mcu-ad-container {
         position: relative;
         top: auto;
