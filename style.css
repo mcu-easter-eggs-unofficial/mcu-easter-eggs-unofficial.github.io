@@ -1824,6 +1824,7 @@ footer {
     top: 96px;
     right: 24px;
     width: 275px;
+    max-height: 105px;
     background: rgba(15, 17, 21, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -1838,6 +1839,7 @@ footer {
     align-items: center;
     justify-content: center;
     text-align: center;
+    overflow: hidden;
     transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -1855,6 +1857,7 @@ footer {
     text-transform: uppercase;
     margin-bottom: 4px;
     user-select: none;
+    line-height: 1;
 }
 
 .ad-slot-wrapper {
@@ -1863,15 +1866,20 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 52px;
+    height: 65px;
+    max-height: 70px;
     position: relative;
     overflow: hidden;
     border-radius: 4px;
 }
 
 .ad-slot-wrapper ins.adsbygoogle {
-    display: block !important;
-    width: 100%;
+    display: inline-block !important;
+    width: 250px !important;
+    max-width: 100% !important;
+    height: 60px !important;
+    max-height: 65px !important;
+    overflow: hidden !important;
 }
 
 .ad-preview-placeholder {
@@ -1886,6 +1894,7 @@ footer {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 4px;
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
 }
 
@@ -1903,6 +1912,7 @@ footer {
         margin: 16px auto 10px auto;
         width: 100%;
         max-width: 330px;
+        max-height: 110px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         z-index: 5;
     }
